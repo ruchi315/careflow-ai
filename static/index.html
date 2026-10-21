@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CareFlow AI</title>
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <div class="topbar"><div class="brand">CareFlow AI <span>human-in-the-loop triage</span></div></div>
+  <div class="kiosk">
+    <div class="panel">
+      <h2>Welcome</h2>
+      <p class="muted">CareFlow AI turns patient messages, voice notes and medical reports (in English, Hindi, Hinglish, Tamil
+        and Bengali) into a structured, source-linked summary so that a nurse or doctor can decide who needs attention first.</p>
+      <p class="disclaimer">CareFlow does not diagnose. Every priority and note is reviewed and approved by a qualified healthcare professional.</p>
+      <div class="row" style="margin-top:16px">
+        <a class="btn" href="/static/intake.html"><button class="primary big">Patient / kiosk intake</button></a>
+        <a class="btn" href="/static/staff.html"><button class="big">Staff dashboard</button></a>
+      </div>
+      <p class="small muted" style="margin-top:16px" id="engines"></p>
+    </div>
+  </div>
+  <script>
+    fetch('/api/health').then(r => r.json()).then(h => {
+      const e = h.engines;
+      document.getElementById('engines').textContent =
+        `Engines - speech: ${e.asr || 'off'} | OCR: ${e.ocr || 'off'} | small language model: ${e.slm ? e.slm.model : 'off (rules + lexicon only)'}`;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+# Required-information checklists (history-taking templates, OPQRST/SOCRATES inspired).
+# check types:
+#   patient: <field>        -> patient demographic present
+#   known: allergies|medications -> mentioned (positively or as "none")
+#   duration                -> the symptom has an onset/duration
+#   severity                -> the symptom has a severity
+#   mentioned: <concept>    -> concept mentioned either positively or negatively
+#   vital: <name>           -> vital sign recorded
+#   history_any: [..]       -> any of these history items mentioned (positively or negatively)
+#   specific_pain           -> a pain with a specific site is present
+# Each item names the follow-up question id (see followups.yaml) and a severity.
+
+global:
+  - {field: age, check: {patient: age}, question: age, severity: medium}
+  - {field: sex, check: {patient: sex}, question: sex, severity: low}
+  - {field: allergies, check: {known: allergies}, question: allergies, severity: low, only_if_symptomatic: true}
+  - {field: medications, check: {known: medications}, question: medications, severity: low, only_if_symptomatic: true}
+
+per_concept:
+  chest_pain:
+    - {field: onset, check: duration, question: onset, severity: high}
+    - {field: sweating_status, check: {mentioned: sweating}, question: sweating_status, severity: high}
+    - {field: radiation_status, check: {mentioned: radiation_arm_jaw}, question: radiation_status, severity: high}
+    - {field: breathlessness_status, check: {mentioned: breathlessness}, question: breathlessness_status, severity: high}
+    - {field: cardiac_history, check: {history_any: [heart_disease, hypertension, diabetes]}, question: cardiac_history, severity: medium}
+  cough:
+    - {field: onset, check: duration, question: onset, severity: low}
+    - {field: fever_status, check: {mentioned: fever}, question: fever_status, severity: medium}
+    - {field: breathlessness_status, check: {mentioned: breathlessness}, question: breathlessness_status, severity: medium}
+  fever:
+    - {field: onset, check: duration, question: onset, severity: medium}
+    - {field: temperature, check: {vital: temp_c}, question: temperature, severity: low}
+  headache:
+    - {field: onset, check: duration, question: onset, severity: medium}
+    - {field: severity, check: severity, question: severity, severity: low}
+  abdominal_pain:
+    - {field: onset, check: duration, question: onset, severity: medium}
+    - {field: severity, check: severity, question: severity, severity: medium}
+    - {field: vomiting_status, check: {mentioned: vomiting}, question: vomiting_status, severity: low}
+  pain:
+    - {field: location, check: specific_pain, question: location, severity: medium}
+    - {field: onset, check: duration, question: onset, severity: medium}
+  breathlessness:
+    - {field: onset, check: duration, question: onset, severity: high}
+    - {field: spo2, check: {vital: spo2}, question: spo2, severity: high}
+  pregnancy:
+    - {field: pregnancy_details, check: never, question: pregnancy_weeks, severity: medium}
+  face_droop:
+    - {field: last_known_well, check: duration, question: last_known_well, severity: high}
+  arm_weakness:
+    - {field: last_known_well, check: duration, question: last_known_well, severity: high}
+  diarrhea:
+    - {field: onset, check: duration, question: onset, severity: low}
+  dizziness:
+    - {field: onset, check: duration, question: onset, severity: low}
+  weakness:
+    - {field: onset, check: duration, question: onset, severity: low}

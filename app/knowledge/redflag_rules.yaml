@@ -1,0 +1,173 @@
+# Red-flag rulebook (versioned). Deterministic layer of the M8 priority engine.
+# Priority scale (ESI-like): P1 Immediate, P2 Emergent, P3 Urgent, P4 Less urgent, P5 Non-urgent.
+#
+# Condition language (used in `all` / `any` lists):
+#   "concept"                       -> a non-negated symptom/finding is present
+#   {any: [cond, ...]}              -> at least one nested condition holds
+#   {age_gte: N} / {age_lt: N}      -> patient age in years
+#   {vital: spo2, lt: 92}           -> vital sign comparison (lt, lte, gt, gte)
+#   {lab: potassium, gt: 6.0}       -> lab value comparison
+#   {duration_gte: {concept: fever, hours: 72}}
+#   {severity_gte: 7}               -> any PAIN concept with severity >= N (0-10)
+# A rule fires when every `all` condition holds and (if present) at least one `any` condition holds.
+#
+# Sources the discriminators were modelled on (to be verified by clinical governance):
+# Emergency Severity Index v4, Manchester Triage System discriminators, WHO ETAT emergency signs.
+# These rules are DECISION SUPPORT for review ordering - they are not diagnostic criteria.
+
+version: "2026.10-hackathon"
+base_priority:
+  symptomatic: P4
+  asymptomatic: P5
+
+rules:
+  - id: RF_STROKE_FAST
+    title: Possible stroke warning signs (face / arm / speech)
+    priority: P1
+    any: [face_droop, arm_weakness, slurred_speech]
+    reference: FAST / BE-FAST stroke screen
+  - id: RF_CHEST_PAIN_AUTONOMIC
+    title: Chest pain with associated warning features
+    priority: P1
+    all: [chest_pain]
+    any: [sweating, breathlessness, radiation_arm_jaw, nausea, vomiting, fainting]
+    reference: MTS chest pain discriminators
+  - id: RF_HYPOXIA
+    title: Low oxygen saturation (SpO2 < 92%)
+    priority: P1
+    all: [{vital: spo2, lt: 92}]
+    reference: ESI danger-zone vitals
+  - id: RF_SEVERE_BREATHLESS
+    title: Severe breathlessness (at rest / cannot speak / blue lips)
+    priority: P1
+    all: [breathlessness]
+    any: [breathless_at_rest, cyanosis]
+    reference: WHO ETAT airway & breathing
+  - id: RF_ANAPHYLAXIS
+    title: Swelling of lips/face/throat with breathing difficulty or hives
+    priority: P1
+    all: [lip_throat_swelling]
+    any: [breathlessness, hives, wheezing]
+    reference: Anaphylaxis recognition criteria
+  - id: RF_SHOCK
+    title: Possible circulatory compromise (low BP or fainting with bleeding)
+    priority: P1
+    any: [{vital: sbp, lt: 90}, {all: [fainting, {any: [bleeding, vomiting_blood, black_stool]}]}]
+    reference: WHO ETAT circulation
+  - id: RF_ALTERED_CONSCIOUSNESS
+    title: Unresponsive / reduced consciousness
+    priority: P1
+    any: [unconscious]
+    reference: AVPU - not alert
+  - id: RF_SUICIDAL
+    title: Thoughts of self-harm or suicide
+    priority: P1
+    any: [suicidal_ideation]
+    reference: Immediate safety assessment (crisis protocol)
+  - id: RF_CHEST_PAIN_OVER40
+    title: Chest pain in a patient aged 40 or above
+    priority: P2
+    all: [chest_pain, {age_gte: 40}]
+    reference: ESI level 2 high-risk situation
+  - id: RF_PREG_BLEED
+    title: Bleeding or pain during pregnancy
+    priority: P2
+    all: [pregnancy]
+    any: [bleeding, abdominal_pain, thunderclap_headache]
+    reference: Obstetric red flags
+  - id: RF_FEVER_MENINGISM
+    title: Fever with neck stiffness
+    priority: P2
+    all: [fever, neck_stiffness]
+    reference: Meningism screen
+  - id: RF_GI_BLEED
+    title: Signs of gastrointestinal bleeding
+    priority: P2
+    any: [vomiting_blood, black_stool, blood_in_stool]
+    reference: MTS GI bleed discriminators
+  - id: RF_SEIZURE
+    title: Recent seizure
+    priority: P2
+    any: [seizure]
+    reference: ESI level 2
+  - id: RF_HEAD_INJURY
+    title: Head injury with vomiting / loss of consciousness / drowsiness
+    priority: P2
+    all: [head_injury]
+    any: [vomiting, loss_of_consciousness, drowsiness, confusion, unconscious]
+    reference: Head injury red flags
+  - id: RF_THUNDERCLAP
+    title: Sudden severe ("worst ever") headache
+    priority: P2
+    any: [thunderclap_headache]
+    reference: Thunderclap headache red flag
+  - id: RF_DEHYDRATION_CHILD
+    title: Child with diarrhoea/vomiting and dehydration signs
+    priority: P2
+    all: [{age_lt: 12}, {any: [diarrhea, vomiting]}, {any: [reduced_urine, lethargy, drowsiness]}]
+    reference: WHO IMCI danger signs
+  - id: RF_INFANT_FEVER
+    title: Fever in an infant under 3 months
+    priority: P2
+    all: [{age_lt: 0.25}, {any: [fever, {vital: temp_c, gte: 38.0}]}]
+    reference: Paediatric fever red flag
+  - id: RF_TACHYCARDIA
+    title: Very fast heart rate (> 130/min)
+    priority: P2
+    all: [{vital: hr, gt: 130}]
+    reference: ESI danger-zone vitals
+  - id: RF_BREATHLESSNESS
+    title: Breathlessness
+    priority: P2
+    all: [breathlessness]
+    reference: ESI level 2 respiratory complaint
+  - id: RF_HYPOGLYCEMIA
+    title: Very low blood glucose (< 54 mg/dL)
+    priority: P2
+    any: [{lab: glucose_random, lt: 54}, {lab: glucose_fasting, lt: 54}]
+    reference: Level 2 hypoglycaemia
+  - id: RF_CRIT_POTASSIUM
+    title: Critical potassium value
+    priority: P2
+    any: [{lab: potassium, gt: 6.0}, {lab: potassium, lt: 2.5}]
+    reference: Laboratory critical value list
+  - id: RF_SEVERE_ANEMIA
+    title: Severe anaemia (Hb < 7 g/dL)
+    priority: P2
+    all: [{lab: hemoglobin, lt: 7.0}]
+    reference: Laboratory critical value list
+  - id: RF_CRIT_SODIUM
+    title: Critical sodium value
+    priority: P2
+    any: [{lab: sodium, lt: 120}, {lab: sodium, gt: 160}]
+    reference: Laboratory critical value list
+  - id: RF_HIGH_FEVER
+    title: High fever (>= 39.5 C)
+    priority: P3
+    any: [{vital: temp_c, gte: 39.5}]
+    reference: MTS hot adult
+  - id: RF_PERSISTENT_FEVER
+    title: Fever for 3 days or more
+    priority: P3
+    all: [{duration_gte: {concept: fever, hours: 72}}]
+    reference: Persistent fever work-up
+  - id: RF_SEVERE_PAIN
+    title: Severe pain (>= 7/10)
+    priority: P3
+    all: [{severity_gte: 7}]
+    reference: MTS severe pain
+  - id: RF_ANIMAL_BITE
+    title: Animal bite (rabies exposure assessment)
+    priority: P3
+    any: [animal_bite]
+    reference: National rabies PEP guideline
+  - id: RF_WHEEZE
+    title: Wheezing
+    priority: P3
+    any: [wheezing]
+    reference: Respiratory assessment
+  - id: RF_CHEST_PAIN
+    title: Chest pain
+    priority: P3
+    all: [chest_pain]
+    reference: Chest pain always needs clinician review

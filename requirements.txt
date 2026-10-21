@@ -1,0 +1,16 @@
+# Core web app
+fastapi==0.147.0
+uvicorn==0.54.0
+python-multipart==0.0.32
+PyYAML==6.0.3
+numpy==2.4.6
+pillow==13.0.0
+pypdf==6.21.1
+# Speech recognition (CPU, int8) - optional, app degrades gracefully without it
+faster-whisper==1.2.1
+# OCR (ONNX, CPU) - optional, app degrades gracefully without it
+rapidocr-onnxruntime==1.2.3
+# Dataset generation + tests
+fpdf2==2.8.9
+pytest==9.1.1
+httpx==0.28.1

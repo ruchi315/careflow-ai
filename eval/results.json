@@ -1,0 +1,1679 @@
+{
+  "metrics": {
+    "run_at": "2026-10-19T16:10:44",
+    "cases": 45,
+    "mode": "full",
+    "engines": {
+      "asr": "faster-whisper-small",
+      "slm": null
+    },
+    "priority_exact": 0.956,
+    "priority_within_1": 0.978,
+    "under_triage_cases": [
+      "CF-013",
+      "CF-031"
+    ],
+    "over_triage_cases": [],
+    "urgent_recall_P1P2": 0.955,
+    "red_flag_rule_recall": 0.931,
+    "precise_flag_recall": 1.0,
+    "precise_flag_precision": 1.0,
+    "missing_info_recall": 1.0,
+    "symptom_recall": 0.974,
+    "injection_detection_rate": "20/20",
+    "injection_false_positives": "0/20",
+    "latency_ms_p50": 8,
+    "latency_ms_p95": 4759,
+    "confusion": {
+      "P1": {
+        "P1": 8,
+        "P2": 0,
+        "P3": 0,
+        "P4": 1,
+        "P5": 0
+      },
+      "P2": {
+        "P1": 0,
+        "P2": 13,
+        "P3": 0,
+        "P4": 0,
+        "P5": 0
+      },
+      "P3": {
+        "P1": 0,
+        "P2": 0,
+        "P3": 6,
+        "P4": 1,
+        "P5": 0
+      },
+      "P4": {
+        "P1": 0,
+        "P2": 0,
+        "P3": 0,
+        "P4": 13,
+        "P5": 0
+      },
+      "P5": {
+        "P1": 0,
+        "P2": 0,
+        "P3": 0,
+        "P4": 0,
+        "P5": 3
+      }
+    }
+  },
+  "rows": [
+    {
+      "case_id": "CF-001",
+      "scenario": "Chest pain with sweating, Hindi voice note + Hinglish text from attendant",
+      "gold": "P1",
+      "pred": "P1",
+      "delta": 0,
+      "gold_red_flags": [
+        "RF_CHEST_PAIN_AUTONOMIC"
+      ],
+      "fired": [
+        "RF_CHEST_PAIN",
+        "RF_CHEST_PAIN_AUTONOMIC",
+        "RF_CHEST_PAIN_OVER40"
+      ],
+      "red_flag_hit": true,
+      "gold_flags": [
+        "missing:allergies",
+        "missing:medications"
+      ],
+      "pred_flags": [
+        "missing:allergies",
+        "missing:breathlessness_status",
+        "missing:cardiac_history",
+        "missing:medications",
+        "missing:radiation_status"
+      ],
+      "gold_symptoms": [
+        "chest_pain",
+        "sweating",
+        "radiation_arm_jaw"
+      ],
+      "pred_symptoms": [
+        "chest_pain",
+        "sweating"
+      ],
+      "ms": 13124,
+      "timings": {
+        "asr": 11454,
+        "langid": 0,
+        "translate": 481,
+        "guards": 20,
+        "extract": 11,
+        "rules": 34,
+        "total": 13124
+      }
+    },
+    {
+      "case_id": "CF-002",
+      "scenario": "Says no diabetes but HbA1c 9.1 on report",
+      "gold": "P4",
+      "pred": "P4",
+      "delta": 0,
+      "gold_red_flags": [],
+      "fired": [],
+      "red_flag_hit": true,
+      "gold_flags": [
+        "conflict:diabetes_history"
+      ],
+      "pred_flags": [
+        "conflict:diabetes_history",
+        "missing:allergies",
+        "missing:medications"
+      ],
+      "gold_symptoms": [
+        "fatigue",
+        "frequent_urination"
+      ],
+      "pred_symptoms": [
+        "fatigue",
+        "frequent_urination"
+      ],
+      "ms": 3220,
+      "timings": {
+        "langid": 0,
+        "ocr": 3171,
+        "labs": 40,
+        "translate": 0,
+        "guards": 1,
+        "extract": 6,
+        "rules": 0,
+        "total": 3220
+      }
+    },
+    {
+      "case_id": "CF-003",
+      "scenario": "Blurry, dark photo of a CBC report",
+      "gold": "P4",
+      "pred": "P4",
+      "delta": 0,
+      "gold_red_flags": [],
+      "fired": [],
+      "red_flag_hit": true,
+      "gold_flags": [
+        "unreadable_report"
+      ],
+      "pred_flags": [
+        "missing:allergies",
+        "missing:medications",
+        "unreadable_report"
+      ],
+      "gold_symptoms": [
+        "weakness",
+        "dizziness"
+      ],
+      "pred_symptoms": [
+        "dizziness",
+        "weakness"
+      ],
+      "ms": 1790,
+      "timings": {
+        "langid": 0,
+        "ocr": 1778,
+        "labs": 0,
+        "translate": 0,
+        "guards": 0,
+        "extract": 5,
+        "rules": 0,
+        "total": 1790
+      }
+    },
+    {
+      "case_id": "CF-004",
+      "scenario": "Report PDF with hidden prompt-injection text",
+      "gold": "P4",
+      "pred": "P4",
+      "delta": 0,
+      "gold_red_flags": [],
+      "fired": [],
+      "red_flag_hit": true,
+      "gold_flags": [
+        "injection"
+      ],
+      "pred_flags": [
+        "hidden_text",
+        "injection",
+        "missing:allergies",
+        "missing:medications"
+      ],
+      "gold_symptoms": [
+        "headache"
+      ],
+      "pred_symptoms": [
+        "headache"
+      ],
+      "ms": 3252,
+      "timings": {
+        "langid": 0,
+        "ocr": 3242,
+        "labs": 3,
+        "translate": 0,
+        "guards": 1,
+        "extract": 3,
+        "rules": 0,
+        "total": 3252
+      }
+    },
+    {
+      "case_id": "CF-005",
+      "scenario": "Routine cough in Tamil",
+      "gold": "P4",
+      "pred": "P4",
+      "delta": 0,
+      "gold_red_flags": [],
+      "fired": [],
+      "red_flag_hit": true,
+      "gold_flags": [
+        "missing:fever_status"
+      ],
+      "pred_flags": [
+        "missing:allergies",
+        "missing:breathlessness_status",
+        "missing:fever_status",
+        "missing:medications"
+      ],
+      "gold_symptoms": [
+        "cough"
+      ],
+      "pred_symptoms": [
+        "cough"
+      ],
+      "ms": 8,
+      "timings": {
+        "langid": 0,
+        "translate": 2,
+        "guards": 0,
+        "extract": 4,
+        "rules": 0,
+        "total": 8
+      }
+    },
+    {
+      "case_id": "CF-006",
+      "scenario": "Fever and cough in Bengali",
+      "gold": "P4",
+      "pred": "P4",
+      "delta": 0,
+      "gold_red_flags": [],
+      "fired": [],
+      "red_flag_hit": true,
+      "gold_flags": [],
+      "pred_flags": [
+        "missing:allergies",
+        "missing:breathlessness_status",
+        "missing:medications",
+        "missing:temperature"
+      ],
+      "gold_symptoms": [
+        "fever",
+        "cough"
+      ],
+      "pred_symptoms": [
+        "cough",
+        "fever"
+      ],
+      "ms": 6,
+      "timings": {
+        "langid": 0,
+        "translate": 2,
+        "guards": 0,
+        "extract": 2,
+        "rules": 0,
+        "total": 6
+      }
+    },
+    {
+      "case_id": "CF-007",
+      "scenario": "Stroke signs (FAST)",
+      "gold": "P1",
+      "pred": "P1",
+      "delta": 0,
+      "gold_red_flags": [
+        "RF_STROKE_FAST"
+      ],
+      "fired": [
+        "RF_STROKE_FAST"
+      ],
+      "red_flag_hit": true,
+      "gold_flags": [],
+      "pred_flags": [
+        "missing:allergies",
+        "missing:last_known_well",
+        "missing:medications"
+      ],
+      "gold_symptoms": [
+        "face_droop",
+        "arm_weakness",
+        "slurred_speech"
+      ],
+      "pred_symptoms": [
+        "arm_weakness",
+        "face_droop",
+        "slurred_speech"
+      ],
+      "ms": 11,
+      "timings": {
+        "langid": 0,
+        "translate": 0,
+        "guards": 0,
+        "extract": 10,
+        "rules": 0,
+        "total": 11
+      }
+    },
+    {
+      "case_id": "CF-008",
+      "scenario": "Breathlessness with low SpO2, Hindi",
+      "gold": "P1",
+      "pred": "P1",
+      "delta": 0,
+      "gold_red_flags": [
+        "RF_HYPOXIA"
+      ],
+      "fired": [
+        "RF_BREATHLESSNESS",
+        "RF_HYPOXIA"
+      ],
+      "red_flag_hit": true,
+      "gold_flags": [],
+      "pred_flags": [
+        "missing:allergies",
+        "missing:fever_status",
+        "missing:medications"
+      ],
+      "gold_symptoms": [
+        "breathlessness",
+        "cough"
+      ],
+      "pred_symptoms": [
+        "breathlessness",
+        "cough"
+      ],
+      "ms": 10,
+      "timings": {
+        "langid": 0,
+        "translate": 2,
+        "guards": 0,
+        "extract": 6,
+        "rules": 0,
+        "total": 9
+      }
+    },
+    {
+      "case_id": "CF-009",
+      "scenario": "Suicidal ideation, Hinglish",
+      "gold": "P1",
+      "pred": "P1",
+      "delta": 0,
+      "gold_red_flags": [
+        "RF_SUICIDAL"
+      ],
+      "fired": [
+        "RF_SUICIDAL"
+      ],
+      "red_flag_hit": true,
+      "gold_flags": [],
+      "pred_flags": [
+        "missing:allergies",
+        "missing:medications"
+      ],
+      "gold_symptoms": [
+        "low_mood",
+        "suicidal_ideation"
+      ],
+      "pred_symptoms": [
+        "low_mood",
+        "suicidal_ideation"
+      ],
+      "ms": 11,
+      "timings": {
+        "langid": 0,
+        "translate": 4,
+        "guards": 0,
+        "extract": 5,
+        "rules": 0,
+        "total": 11
+      }
+    },
+    {
+      "case_id": "CF-010",
+      "scenario": "Anaphylaxis after peanuts",
+      "gold": "P1",
+      "pred": "P1",
+      "delta": 0,
+      "gold_red_flags": [
+        "RF_ANAPHYLAXIS"
+      ],
+      "fired": [
+        "RF_ANAPHYLAXIS",
+        "RF_BREATHLESSNESS"
+      ],
+      "red_flag_hit": true,
+      "gold_flags": [],
+      "pred_flags": [
+        "missing:allergies",
+        "missing:medications",
+        "missing:onset",
+        "missing:spo2"
+      ],
+      "gold_symptoms": [
+        "lip_throat_swelling",
+        "breathlessness"
+      ],
+      "pred_symptoms": [
+        "breathlessness",
+        "lip_throat_swelling"
+      ],
+      "ms": 6,
+      "timings": {
+        "langid": 0,
+        "translate": 0,
+        "guards": 0,
+        "extract": 5,
+        "rules": 0,
+        "total": 6
+      }
+    },
+    {
+      "case_id": "CF-011",
+      "scenario": "Fainting with low BP",
+      "gold": "P1",
+      "pred": "P1",
+      "delta": 0,
+      "gold_red_flags": [
+        "RF_SHOCK"
+      ],
+      "fired": [
+        "RF_SHOCK"
+      ],
+      "red_flag_hit": true,
+      "gold_flags": [],
+      "pred_flags": [
+        "missing:allergies",
+        "missing:medications"
+      ],
+      "gold_symptoms": [
+        "fainting",
+        "weakness"
+      ],
+      "pred_symptoms": [
+        "fainting",
+        "weakness"
+      ],
+      "ms": 8,
+      "timings": {
+        "langid": 0,
+        "translate": 0,
+        "guards": 0,
+        "extract": 6,
+        "rules": 0,
+        "total": 8
+      }
+    },
+    {
+      "case_id": "CF-012",
+      "scenario": "Chest pain and sweating, Bengali",
+      "gold": "P1",
+      "pred": "P1",
+      "delta": 0,
+      "gold_red_flags": [
+        "RF_CHEST_PAIN_AUTONOMIC"
+      ],
+      "fired": [
+        "RF_CHEST_PAIN",
+        "RF_CHEST_PAIN_AUTONOMIC",
+        "RF_CHEST_PAIN_OVER40"
+      ],
+      "red_flag_hit": true,
+      "gold_flags": [],
+      "pred_flags": [
+        "missing:allergies",
+        "missing:breathlessness_status",
+        "missing:cardiac_history",
+        "missing:medications",
+        "missing:radiation_status"
+      ],
+      "gold_symptoms": [
+        "chest_pain",
+        "sweating"
+      ],
+      "pred_symptoms": [
+        "chest_pain",
+        "sweating"
+      ],
+      "ms": 10,
+      "timings": {
+        "langid": 0,
+        "translate": 3,
+        "guards": 0,
+        "extract": 5,
+        "rules": 0,
+        "total": 10
+      }
+    },
+    {
+      "case_id": "CF-013",
+      "scenario": "Atypical chest description (metaphor) - rules may miss",
+      "gold": "P1",
+      "pred": "P4",
+      "delta": 3,
+      "gold_red_flags": [
+        "RF_CHEST_PAIN_AUTONOMIC"
+      ],
+      "fired": [],
+      "red_flag_hit": false,
+      "gold_flags": [],
+      "pred_flags": [
+        "missing:allergies",
+        "missing:medications"
+      ],
+      "gold_symptoms": [
+        "chest_pain",
+        "nausea"
+      ],
+      "pred_symptoms": [
+        "nausea"
+      ],
+      "ms": 6,
+      "timings": {
+        "langid": 0,
+        "translate": 0,
+        "guards": 0,
+        "extract": 5,
+        "rules": 0,
+        "total": 6
+      }
+    },
+    {
+      "case_id": "CF-014",
+      "scenario": "Unresponsive patient",
+      "gold": "P1",
+      "pred": "P1",
+      "delta": 0,
+      "gold_red_flags": [
+        "RF_ALTERED_CONSCIOUSNESS"
+      ],
+      "fired": [
+        "RF_ALTERED_CONSCIOUSNESS"
+      ],
+      "red_flag_hit": true,
+      "gold_flags": [],
+      "pred_flags": [
+        "missing:allergies",
+        "missing:medications"
+      ],
+      "gold_symptoms": [
+        "unconscious"
+      ],
+      "pred_symptoms": [
+        "unconscious"
+      ],
+      "ms": 5,
+      "timings": {
+        "langid": 0,
+        "translate": 0,
+        "guards": 0,
+        "extract": 4,
+        "rules": 0,
+        "total": 5
+      }
+    },
+    {
+      "case_id": "CF-015",
+      "scenario": "Pregnant with bleeding, Hinglish",
+      "gold": "P2",
+      "pred": "P2",
+      "delta": 0,
+      "gold_red_flags": [
+        "RF_PREG_BLEED"
+      ],
+      "fired": [
+        "RF_PREG_BLEED"
+      ],
+      "red_flag_hit": true,
+      "gold_flags": [],
+      "pred_flags": [
+        "missing:allergies",
+        "missing:medications",
+        "missing:pregnancy_details",
+        "missing:severity",
+        "missing:vomiting_status"
+      ],
+      "gold_symptoms": [
+        "pregnancy",
+        "bleeding",
+        "abdominal_pain"
+      ],
+      "pred_symptoms": [
+        "abdominal_pain",
+        "bleeding",
+        "pregnancy"
+      ],
+      "ms": 11,
+      "timings": {
+        "langid": 0,
+        "translate": 3,
+        "guards": 0,
+        "extract": 6,
+        "rules": 0,
+        "total": 11
+      }
+    },
+    {
+      "case_id": "CF-016",
+      "scenario": "Child with fever, stiff neck and rash",
+      "gold": "P2",
+      "pred": "P2",
+      "delta": 0,
+      "gold_red_flags": [
+        "RF_FEVER_MENINGISM"
+      ],
+      "fired": [
+        "RF_FEVER_MENINGISM"
+      ],
+      "red_flag_hit": true,
+      "gold_flags": [],
+      "pred_flags": [
+        "missing:allergies",
+        "missing:medications",
+        "missing:temperature"
+      ],
+      "gold_symptoms": [
+        "fever",
+        "neck_stiffness",
+        "rash"
+      ],
+      "pred_symptoms": [
+        "fever",
+        "neck_stiffness",
+        "rash"
+      ],
+      "ms": 8,
+      "timings": {
+        "langid": 0,
+        "translate": 0,
+        "guards": 0,
+        "extract": 6,
+        "rules": 0,
+        "total": 8
+      }
+    },
+    {
+      "case_id": "CF-017",
+      "scenario": "Vomiting blood and black stool, Hindi",
+      "gold": "P2",
+      "pred": "P2",
+      "delta": 0,
+      "gold_red_flags": [
+        "RF_GI_BLEED"
+      ],
+      "fired": [
+        "RF_GI_BLEED"
+      ],
+      "red_flag_hit": true,
+      "gold_flags": [],
+      "pred_flags": [
+        "missing:allergies",
+        "missing:medications"
+      ],
+      "gold_symptoms": [
+        "vomiting_blood",
+        "black_stool"
+      ],
+      "pred_symptoms": [
+        "black_stool",
+        "vomiting_blood"
+      ],
+      "ms": 9,
+      "timings": {
+        "langid": 0,
+        "translate": 3,
+        "guards": 0,
+        "extract": 5,
+        "rules": 0,
+        "total": 9
+      }
+    },
+    {
+      "case_id": "CF-018",
+      "scenario": "Seizure, now drowsy",
+      "gold": "P2",
+      "pred": "P2",
+      "delta": 0,
+      "gold_red_flags": [
+        "RF_SEIZURE"
+      ],
+      "fired": [
+        "RF_SEIZURE"
+      ],
+      "red_flag_hit": true,
+      "gold_flags": [],
+      "pred_flags": [
+        "missing:allergies",
+        "missing:medications"
+      ],
+      "gold_symptoms": [
+        "seizure",
+        "drowsiness"
+      ],
+      "pred_symptoms": [
+        "drowsiness",
+        "seizure"
+      ],
+      "ms": 5,
+      "timings": {
+        "langid": 0,
+        "translate": 0,
+        "guards": 0,
+        "extract": 3,
+        "rules": 0,
+        "total": 5
+      }
+    },
+    {
+      "case_id": "CF-019",
+      "scenario": "Critical potassium on dialysis follow-up",
+      "gold": "P2",
+      "pred": "P2",
+      "delta": 0,
+      "gold_red_flags": [
+        "RF_CRIT_POTASSIUM"
+      ],
+      "fired": [
+        "RF_CRIT_POTASSIUM"
+      ],
+      "red_flag_hit": true,
+      "gold_flags": [
+        "missing:medications"
+      ],
+      "pred_flags": [
+        "missing:allergies",
+        "missing:medications"
+      ],
+      "gold_symptoms": [
+        "weakness"
+      ],
+      "pred_symptoms": [
+        "weakness"
+      ],
+      "ms": 2832,
+      "timings": {
+        "langid": 0,
+        "ocr": 2821,
+        "labs": 1,
+        "translate": 0,
+        "guards": 1,
+        "extract": 6,
+        "rules": 0,
+        "total": 2832
+      }
+    },
+    {
+      "case_id": "CF-020",
+      "scenario": "Severe anaemia on clear report photo",
+      "gold": "P2",
+      "pred": "P2",
+      "delta": 0,
+      "gold_red_flags": [
+        "RF_SEVERE_ANEMIA"
+      ],
+      "fired": [
+        "RF_BREATHLESSNESS",
+        "RF_SEVERE_ANEMIA"
+      ],
+      "red_flag_hit": true,
+      "gold_flags": [],
+      "pred_flags": [
+        "missing:allergies",
+        "missing:medications",
+        "missing:spo2"
+      ],
+      "gold_symptoms": [
+        "fatigue",
+        "breathlessness"
+      ],
+      "pred_symptoms": [
+        "breathlessness",
+        "fatigue"
+      ],
+      "ms": 2854,
+      "timings": {
+        "langid": 0,
+        "ocr": 2845,
+        "labs": 2,
+        "translate": 0,
+        "guards": 1,
+        "extract": 3,
+        "rules": 0,
+        "total": 2854
+      }
+    },
+    {
+      "case_id": "CF-021",
+      "scenario": "Hypoglycaemia, Hinglish",
+      "gold": "P2",
+      "pred": "P2",
+      "delta": 0,
+      "gold_red_flags": [
+        "RF_HYPOGLYCEMIA"
+      ],
+      "fired": [
+        "RF_HYPOGLYCEMIA"
+      ],
+      "red_flag_hit": true,
+      "gold_flags": [],
+      "pred_flags": [
+        "missing:allergies",
+        "missing:medications",
+        "missing:onset"
+      ],
+      "gold_symptoms": [
+        "dizziness",
+        "sweating"
+      ],
+      "pred_symptoms": [
+        "dizziness",
+        "sweating"
+      ],
+      "ms": 10,
+      "timings": {
+        "langid": 0,
+        "translate": 3,
+        "guards": 0,
+        "extract": 6,
+        "rules": 0,
+        "total": 10
+      }
+    },
+    {
+      "case_id": "CF-022",
+      "scenario": "Head injury with vomiting",
+      "gold": "P2",
+      "pred": "P2",
+      "delta": 0,
+      "gold_red_flags": [
+        "RF_HEAD_INJURY"
+      ],
+      "fired": [
+        "RF_HEAD_INJURY"
+      ],
+      "red_flag_hit": true,
+      "gold_flags": [],
+      "pred_flags": [
+        "missing:allergies",
+        "missing:medications"
+      ],
+      "gold_symptoms": [
+        "head_injury",
+        "vomiting",
+        "loss_of_consciousness"
+      ],
+      "pred_symptoms": [
+        "head_injury",
+        "loss_of_consciousness",
+        "vomiting"
+      ],
+      "ms": 8,
+      "timings": {
+        "langid": 0,
+        "translate": 0,
+        "guards": 0,
+        "extract": 7,
+        "rules": 0,
+        "total": 8
+      }
+    },
+    {
+      "case_id": "CF-023",
+      "scenario": "Thunderclap headache",
+      "gold": "P2",
+      "pred": "P2",
+      "delta": 0,
+      "gold_red_flags": [
+        "RF_THUNDERCLAP"
+      ],
+      "fired": [
+        "RF_THUNDERCLAP"
+      ],
+      "red_flag_hit": true,
+      "gold_flags": [],
+      "pred_flags": [
+        "missing:allergies",
+        "missing:medications",
+        "missing:severity"
+      ],
+      "gold_symptoms": [
+        "headache",
+        "thunderclap_headache"
+      ],
+      "pred_symptoms": [
+        "headache",
+        "thunderclap_headache"
+      ],
+      "ms": 5,
+      "timings": {
+        "langid": 0,
+        "translate": 0,
+        "guards": 0,
+        "extract": 4,
+        "rules": 0,
+        "total": 5
+      }
+    },
+    {
+      "case_id": "CF-024",
+      "scenario": "Child dehydration, Hindi",
+      "gold": "P2",
+      "pred": "P2",
+      "delta": 0,
+      "gold_red_flags": [
+        "RF_DEHYDRATION_CHILD"
+      ],
+      "fired": [
+        "RF_DEHYDRATION_CHILD"
+      ],
+      "red_flag_hit": true,
+      "gold_flags": [],
+      "pred_flags": [
+        "missing:allergies",
+        "missing:medications"
+      ],
+      "gold_symptoms": [
+        "diarrhea",
+        "vomiting",
+        "reduced_urine",
+        "lethargy"
+      ],
+      "pred_symptoms": [
+        "diarrhea",
+        "lethargy",
+        "reduced_urine",
+        "vomiting"
+      ],
+      "ms": 10,
+      "timings": {
+        "langid": 0,
+        "translate": 3,
+        "guards": 0,
+        "extract": 5,
+        "rules": 0,
+        "total": 10
+      }
+    },
+    {
+      "case_id": "CF-025",
+      "scenario": "Fever in a 6-week-old infant",
+      "gold": "P2",
+      "pred": "P2",
+      "delta": 0,
+      "gold_red_flags": [
+        "RF_INFANT_FEVER"
+      ],
+      "fired": [
+        "RF_INFANT_FEVER"
+      ],
+      "red_flag_hit": true,
+      "gold_flags": [],
+      "pred_flags": [
+        "missing:allergies",
+        "missing:medications",
+        "missing:onset"
+      ],
+      "gold_symptoms": [
+        "fever"
+      ],
+      "pred_symptoms": [
+        "fever"
+      ],
+      "ms": 7,
+      "timings": {
+        "langid": 0,
+        "translate": 0,
+        "guards": 0,
+        "extract": 5,
+        "rules": 0,
+        "total": 7
+      }
+    },
+    {
+      "case_id": "CF-026",
+      "scenario": "Palpitations with HR 145",
+      "gold": "P2",
+      "pred": "P2",
+      "delta": 0,
+      "gold_red_flags": [
+        "RF_TACHYCARDIA"
+      ],
+      "fired": [
+        "RF_TACHYCARDIA"
+      ],
+      "red_flag_hit": true,
+      "gold_flags": [],
+      "pred_flags": [
+        "missing:allergies",
+        "missing:medications"
+      ],
+      "gold_symptoms": [
+        "palpitations"
+      ],
+      "pred_symptoms": [
+        "palpitations"
+      ],
+      "ms": 6,
+      "timings": {
+        "langid": 0,
+        "translate": 0,
+        "guards": 0,
+        "extract": 5,
+        "rules": 0,
+        "total": 6
+      }
+    },
+    {
+      "case_id": "CF-027",
+      "scenario": "Child fever with breathlessness, Tamil",
+      "gold": "P2",
+      "pred": "P2",
+      "delta": 0,
+      "gold_red_flags": [
+        "RF_BREATHLESSNESS"
+      ],
+      "fired": [
+        "RF_BREATHLESSNESS"
+      ],
+      "red_flag_hit": true,
+      "gold_flags": [],
+      "pred_flags": [
+        "missing:allergies",
+        "missing:medications",
+        "missing:onset",
+        "missing:spo2",
+        "missing:temperature"
+      ],
+      "gold_symptoms": [
+        "fever",
+        "breathlessness"
+      ],
+      "pred_symptoms": [
+        "breathlessness",
+        "fever"
+      ],
+      "ms": 8,
+      "timings": {
+        "langid": 0,
+        "translate": 3,
+        "guards": 0,
+        "extract": 4,
+        "rules": 0,
+        "total": 8
+      }
+    },
+    {
+      "case_id": "CF-028",
+      "scenario": "Fever 4 days, Hinglish",
+      "gold": "P3",
+      "pred": "P3",
+      "delta": 0,
+      "gold_red_flags": [
+        "RF_PERSISTENT_FEVER"
+      ],
+      "fired": [
+        "RF_PERSISTENT_FEVER"
+      ],
+      "red_flag_hit": true,
+      "gold_flags": [],
+      "pred_flags": [
+        "missing:allergies",
+        "missing:medications",
+        "missing:severity",
+        "missing:temperature"
+      ],
+      "gold_symptoms": [
+        "fever",
+        "headache",
+        "body_ache"
+      ],
+      "pred_symptoms": [
+        "body_ache",
+        "fever",
+        "headache"
+      ],
+      "ms": 7,
+      "timings": {
+        "langid": 0,
+        "translate": 2,
+        "guards": 0,
+        "extract": 3,
+        "rules": 0,
+        "total": 7
+      }
+    },
+    {
+      "case_id": "CF-029",
+      "scenario": "Severe right lower abdominal pain",
+      "gold": "P3",
+      "pred": "P3",
+      "delta": 0,
+      "gold_red_flags": [
+        "RF_SEVERE_PAIN"
+      ],
+      "fired": [
+        "RF_SEVERE_PAIN"
+      ],
+      "red_flag_hit": true,
+      "gold_flags": [],
+      "pred_flags": [
+        "missing:allergies",
+        "missing:medications"
+      ],
+      "gold_symptoms": [
+        "abdominal_pain",
+        "vomiting"
+      ],
+      "pred_symptoms": [
+        "abdominal_pain",
+        "vomiting"
+      ],
+      "ms": 7,
+      "timings": {
+        "langid": 0,
+        "translate": 0,
+        "guards": 0,
+        "extract": 6,
+        "rules": 0,
+        "total": 7
+      }
+    },
+    {
+      "case_id": "CF-030",
+      "scenario": "Dog bite, Hinglish",
+      "gold": "P3",
+      "pred": "P3",
+      "delta": 0,
+      "gold_red_flags": [
+        "RF_ANIMAL_BITE"
+      ],
+      "fired": [
+        "RF_ANIMAL_BITE"
+      ],
+      "red_flag_hit": true,
+      "gold_flags": [],
+      "pred_flags": [
+        "missing:allergies",
+        "missing:medications"
+      ],
+      "gold_symptoms": [
+        "animal_bite"
+      ],
+      "pred_symptoms": [
+        "animal_bite"
+      ],
+      "ms": 6,
+      "timings": {
+        "langid": 0,
+        "translate": 2,
+        "guards": 0,
+        "extract": 3,
+        "rules": 0,
+        "total": 6
+      }
+    },
+    {
+      "case_id": "CF-031",
+      "scenario": "Hindi voice note: fever and cough 3 days",
+      "gold": "P3",
+      "pred": "P4",
+      "delta": 1,
+      "gold_red_flags": [
+        "RF_PERSISTENT_FEVER"
+      ],
+      "fired": [],
+      "red_flag_hit": false,
+      "gold_flags": [],
+      "pred_flags": [
+        "missing:allergies",
+        "missing:breathlessness_status",
+        "missing:medications",
+        "missing:onset",
+        "missing:temperature"
+      ],
+      "gold_symptoms": [
+        "fever",
+        "cough"
+      ],
+      "pred_symptoms": [
+        "cough",
+        "fever"
+      ],
+      "ms": 5684,
+      "timings": {
+        "asr": 5677,
+        "translate": 2,
+        "guards": 0,
+        "extract": 3,
+        "rules": 0,
+        "total": 5684
+      }
+    },
+    {
+      "case_id": "CF-032",
+      "scenario": "High fever 40.1 with chills",
+      "gold": "P3",
+      "pred": "P3",
+      "delta": 0,
+      "gold_red_flags": [
+        "RF_HIGH_FEVER"
+      ],
+      "fired": [
+        "RF_HIGH_FEVER"
+      ],
+      "red_flag_hit": true,
+      "gold_flags": [],
+      "pred_flags": [
+        "missing:allergies",
+        "missing:medications"
+      ],
+      "gold_symptoms": [
+        "fever",
+        "chills"
+      ],
+      "pred_symptoms": [
+        "chills",
+        "fever"
+      ],
+      "ms": 5,
+      "timings": {
+        "langid": 0,
+        "translate": 0,
+        "guards": 0,
+        "extract": 4,
+        "rules": 0,
+        "total": 5
+      }
+    },
+    {
+      "case_id": "CF-033",
+      "scenario": "Wheezing, inhaler partly helping",
+      "gold": "P3",
+      "pred": "P3",
+      "delta": 0,
+      "gold_red_flags": [
+        "RF_WHEEZE"
+      ],
+      "fired": [
+        "RF_WHEEZE"
+      ],
+      "red_flag_hit": true,
+      "gold_flags": [],
+      "pred_flags": [
+        "missing:allergies",
+        "missing:medications"
+      ],
+      "gold_symptoms": [
+        "wheezing"
+      ],
+      "pred_symptoms": [
+        "wheezing"
+      ],
+      "ms": 6,
+      "timings": {
+        "langid": 0,
+        "translate": 0,
+        "guards": 0,
+        "extract": 4,
+        "rules": 0,
+        "total": 5
+      }
+    },
+    {
+      "case_id": "CF-034",
+      "scenario": "Young adult, chest pain on breathing, Hinglish",
+      "gold": "P3",
+      "pred": "P3",
+      "delta": 0,
+      "gold_red_flags": [
+        "RF_CHEST_PAIN"
+      ],
+      "fired": [
+        "RF_CHEST_PAIN"
+      ],
+      "red_flag_hit": true,
+      "gold_flags": [],
+      "pred_flags": [
+        "missing:allergies",
+        "missing:breathlessness_status",
+        "missing:cardiac_history",
+        "missing:medications",
+        "missing:radiation_status",
+        "missing:sweating_status"
+      ],
+      "gold_symptoms": [
+        "chest_pain"
+      ],
+      "pred_symptoms": [
+        "chest_pain"
+      ],
+      "ms": 9,
+      "timings": {
+        "langid": 0,
+        "translate": 3,
+        "guards": 0,
+        "extract": 4,
+        "rules": 0,
+        "total": 9
+      }
+    },
+    {
+      "case_id": "CF-035",
+      "scenario": "Duration conflict between text and voice",
+      "gold": "P4",
+      "pred": "P4",
+      "delta": 0,
+      "gold_red_flags": [],
+      "fired": [],
+      "red_flag_hit": true,
+      "gold_flags": [
+        "conflict:duration"
+      ],
+      "pred_flags": [
+        "conflict:duration",
+        "missing:allergies",
+        "missing:breathlessness_status",
+        "missing:fever_status",
+        "missing:medications"
+      ],
+      "gold_symptoms": [
+        "cough"
+      ],
+      "pred_symptoms": [
+        "cough"
+      ],
+      "ms": 4644,
+      "timings": {
+        "langid": 0,
+        "asr": 4634,
+        "translate": 0,
+        "guards": 0,
+        "extract": 6,
+        "rules": 0,
+        "total": 4644
+      }
+    },
+    {
+      "case_id": "CF-036",
+      "scenario": "English voice note: headache and dizziness",
+      "gold": "P4",
+      "pred": "P4",
+      "delta": 0,
+      "gold_red_flags": [],
+      "fired": [],
+      "red_flag_hit": true,
+      "gold_flags": [],
+      "pred_flags": [
+        "missing:allergies",
+        "missing:medications",
+        "missing:severity"
+      ],
+      "gold_symptoms": [
+        "headache",
+        "dizziness"
+      ],
+      "pred_symptoms": [
+        "dizziness",
+        "headache"
+      ],
+      "ms": 4759,
+      "timings": {
+        "asr": 4753,
+        "translate": 0,
+        "guards": 0,
+        "extract": 5,
+        "rules": 0,
+        "total": 4759
+      }
+    },
+    {
+      "case_id": "CF-037",
+      "scenario": "Burning urination 3 days",
+      "gold": "P4",
+      "pred": "P4",
+      "delta": 0,
+      "gold_red_flags": [],
+      "fired": [],
+      "red_flag_hit": true,
+      "gold_flags": [],
+      "pred_flags": [
+        "missing:allergies",
+        "missing:medications"
+      ],
+      "gold_symptoms": [
+        "burning_urination"
+      ],
+      "pred_symptoms": [
+        "burning_urination"
+      ],
+      "ms": 4,
+      "timings": {
+        "langid": 0,
+        "translate": 0,
+        "guards": 0,
+        "extract": 3,
+        "rules": 0,
+        "total": 4
+      }
+    },
+    {
+      "case_id": "CF-038",
+      "scenario": "Chronic mild back pain",
+      "gold": "P4",
+      "pred": "P4",
+      "delta": 0,
+      "gold_red_flags": [],
+      "fired": [],
+      "red_flag_hit": true,
+      "gold_flags": [],
+      "pred_flags": [
+        "missing:allergies",
+        "missing:medications"
+      ],
+      "gold_symptoms": [
+        "back_pain"
+      ],
+      "pred_symptoms": [
+        "back_pain"
+      ],
+      "ms": 4,
+      "timings": {
+        "langid": 0,
+        "translate": 0,
+        "guards": 0,
+        "extract": 3,
+        "rules": 0,
+        "total": 4
+      }
+    },
+    {
+      "case_id": "CF-039",
+      "scenario": "Itchy rash, Bengali",
+      "gold": "P4",
+      "pred": "P4",
+      "delta": 0,
+      "gold_red_flags": [],
+      "fired": [],
+      "red_flag_hit": true,
+      "gold_flags": [],
+      "pred_flags": [
+        "missing:allergies",
+        "missing:medications"
+      ],
+      "gold_symptoms": [
+        "itching",
+        "rash"
+      ],
+      "pred_symptoms": [
+        "itching",
+        "rash"
+      ],
+      "ms": 7,
+      "timings": {
+        "langid": 0,
+        "translate": 2,
+        "guards": 0,
+        "extract": 3,
+        "rules": 0,
+        "total": 7
+      }
+    },
+    {
+      "case_id": "CF-040",
+      "scenario": "Sore throat and cold, Tamil",
+      "gold": "P4",
+      "pred": "P4",
+      "delta": 0,
+      "gold_red_flags": [],
+      "fired": [],
+      "red_flag_hit": true,
+      "gold_flags": [],
+      "pred_flags": [
+        "missing:allergies",
+        "missing:medications"
+      ],
+      "gold_symptoms": [
+        "sore_throat",
+        "runny_nose"
+      ],
+      "pred_symptoms": [
+        "runny_nose",
+        "sore_throat"
+      ],
+      "ms": 6,
+      "timings": {
+        "langid": 0,
+        "translate": 1,
+        "guards": 0,
+        "extract": 3,
+        "rules": 0,
+        "total": 5
+      }
+    },
+    {
+      "case_id": "CF-041",
+      "scenario": "Very little information",
+      "gold": "P4",
+      "pred": "P4",
+      "delta": 0,
+      "gold_red_flags": [],
+      "fired": [],
+      "red_flag_hit": true,
+      "gold_flags": [
+        "missing:age",
+        "missing:onset",
+        "missing:location"
+      ],
+      "pred_flags": [
+        "missing:age",
+        "missing:allergies",
+        "missing:location",
+        "missing:medications",
+        "missing:onset",
+        "missing:sex"
+      ],
+      "gold_symptoms": [
+        "pain"
+      ],
+      "pred_symptoms": [
+        "pain"
+      ],
+      "ms": 1,
+      "timings": {
+        "langid": 0,
+        "translate": 0,
+        "guards": 0,
+        "extract": 0,
+        "rules": 0,
+        "total": 1
+      }
+    },
+    {
+      "case_id": "CF-042",
+      "scenario": "Injection attempt to jump the queue",
+      "gold": "P4",
+      "pred": "P4",
+      "delta": 0,
+      "gold_red_flags": [],
+      "fired": [],
+      "red_flag_hit": true,
+      "gold_flags": [
+        "injection"
+      ],
+      "pred_flags": [
+        "injection",
+        "missing:allergies",
+        "missing:medications"
+      ],
+      "gold_symptoms": [
+        "acne"
+      ],
+      "pred_symptoms": [
+        "acne"
+      ],
+      "ms": 8,
+      "timings": {
+        "langid": 0,
+        "translate": 0,
+        "guards": 0,
+        "extract": 6,
+        "rules": 0,
+        "total": 8
+      }
+    },
+    {
+      "case_id": "CF-043",
+      "scenario": "Report name and sex do not match patient",
+      "gold": "P5",
+      "pred": "P5",
+      "delta": 0,
+      "gold_red_flags": [],
+      "fired": [],
+      "red_flag_hit": true,
+      "gold_flags": [
+        "conflict:name",
+        "conflict:sex"
+      ],
+      "pred_flags": [
+        "conflict:name",
+        "conflict:sex"
+      ],
+      "gold_symptoms": [],
+      "pred_symptoms": [],
+      "ms": 2453,
+      "timings": {
+        "langid": 0,
+        "ocr": 2446,
+        "labs": 2,
+        "translate": 0,
+        "guards": 1,
+        "extract": 3,
+        "rules": 0,
+        "total": 2453
+      }
+    },
+    {
+      "case_id": "CF-044",
+      "scenario": "Age on report differs from form",
+      "gold": "P5",
+      "pred": "P5",
+      "delta": 0,
+      "gold_red_flags": [],
+      "fired": [],
+      "red_flag_hit": true,
+      "gold_flags": [
+        "conflict:age"
+      ],
+      "pred_flags": [
+        "conflict:age"
+      ],
+      "gold_symptoms": [],
+      "pred_symptoms": [],
+      "ms": 2909,
+      "timings": {
+        "langid": 0,
+        "ocr": 2899,
+        "labs": 2,
+        "translate": 0,
+        "guards": 1,
+        "extract": 4,
+        "rules": 0,
+        "total": 2909
+      }
+    },
+    {
+      "case_id": "CF-045",
+      "scenario": "BP medicine refill",
+      "gold": "P5",
+      "pred": "P5",
+      "delta": 0,
+      "gold_red_flags": [],
+      "fired": [],
+      "red_flag_hit": true,
+      "gold_flags": [],
+      "pred_flags": [],
+      "gold_symptoms": [],
+      "pred_symptoms": [],
+      "ms": 5,
+      "timings": {
+        "langid": 0,
+        "translate": 0,
+        "guards": 0,
+        "extract": 4,
+        "rules": 0,
+        "total": 5
+      }
+    }
+  ]
+}

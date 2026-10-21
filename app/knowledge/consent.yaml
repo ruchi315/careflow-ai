@@ -1,0 +1,30 @@
+# Consent text (version controlled). Shown in the patient's language before any data is captured.
+version: "1.0-2026-10"
+scopes:
+  triage:
+    required: true
+    en: I agree that my information (text, voice and reports) is processed to help the hospital staff decide who needs attention first. A doctor or nurse makes every final decision.
+    hi: मैं सहमत हूँ कि मेरी जानकारी (लिखित, आवाज़ और रिपोर्ट) का उपयोग यह तय करने में मदद के लिए किया जाए कि किसे पहले देखा जाए। हर अंतिम निर्णय डॉक्टर या नर्स लेंगे।
+    hi-en: Main sehmat hoon ki meri jaankari (text, awaaz aur report) ka upyog yeh tay karne mein madad ke liye ho ki kise pehle dekha jaaye. Har antim faisla doctor ya nurse lenge.
+    ta: எனது தகவல்கள் (எழுத்து, குரல், அறிக்கைகள்) யாரை முதலில் பார்க்க வேண்டும் என்பதை முடிவு செய்ய உதவப் பயன்படுத்தப்படுவதற்கு நான் ஒப்புக்கொள்கிறேன். ஒவ்வொரு இறுதி முடிவையும் மருத்துவர் அல்லது செவிலியர் எடுப்பார்.
+    bn: আমি সম্মত যে আমার তথ্য (লেখা, কণ্ঠস্বর ও রিপোর্ট) কাকে আগে দেখা দরকার তা ঠিক করতে সাহায্যের জন্য ব্যবহার করা হবে। প্রতিটি চূড়ান্ত সিদ্ধান্ত ডাক্তার বা নার্স নেবেন।
+  store_voice:
+    required: false
+    en: Keep my voice recording with my case so a clinician can listen to it.
+    hi: मेरी आवाज़ की रिकॉर्डिंग मेरे केस के साथ रखी जाए ताकि डॉक्टर उसे सुन सकें।
+    hi-en: Meri awaaz ki recording mere case ke saath rakhi jaaye taaki doctor use sun sakein.
+    ta: மருத்துவர் கேட்கும் வகையில் எனது குரல் பதிவை எனது கேஸுடன் வைத்திருக்கவும்.
+    bn: আমার কণ্ঠস্বরের রেকর্ডিং আমার কেসের সাথে রাখা হোক যাতে ডাক্তার শুনতে পারেন।
+  research:
+    required: false
+    en: My anonymised data may be used to improve this system.
+    hi: मेरा गुमनाम डेटा इस प्रणाली को बेहतर बनाने के लिए उपयोग किया जा सकता है।
+    hi-en: Mera anonymised data is system ko behtar banane ke liye use kiya ja sakta hai.
+    ta: எனது அடையாளம் நீக்கப்பட்ட தரவு இந்த அமைப்பை மேம்படுத்தப் பயன்படுத்தப்படலாம்.
+    bn: আমার পরিচয়হীন তথ্য এই ব্যবস্থাকে উন্নত করতে ব্যবহার করা যেতে পারে।
+rights:
+  en: You can withdraw consent or ask us to delete your data at any time using your case code and access code.
+  hi: आप अपने केस कोड और एक्सेस कोड से कभी भी सहमति वापस ले सकते हैं या अपना डेटा हटाने को कह सकते हैं।
+  hi-en: Aap apne case code aur access code se kabhi bhi sehmati wapas le sakte hain ya apna data delete karwa sakte hain.
+  ta: உங்கள் கேஸ் குறியீடு மற்றும் அணுகல் குறியீட்டைப் பயன்படுத்தி எப்போது வேண்டுமானாலும் ஒப்புதலைத் திரும்பப் பெறலாம் அல்லது தரவை நீக்கக் கோரலாம்.
+  bn: আপনি আপনার কেস কোড ও অ্যাক্সেস কোড দিয়ে যেকোনো সময় সম্মতি প্রত্যাহার করতে বা তথ্য মুছে ফেলতে বলতে পারেন।

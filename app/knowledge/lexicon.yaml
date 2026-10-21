@@ -1,0 +1,559 @@
+# Multilingual clinical lexicon used for extraction and glossing.
+# Every pattern is a regular expression matched against normalised text
+# (Latin text is lower-cased; Indic digits are mapped to ASCII; ZWJ/ZWNJ removed).
+# Keys: en = English, hi-en = Hinglish (romanised), hi = Hindi, ta = Tamil, bn = Bengali.
+# Indic patterns are matched with a left word-boundary only, so inflected forms still match.
+# NOTE: Tamil/Bengali entries were authored for the hackathon and need native-speaker review.
+
+concepts:
+  # ---------------- cardiovascular / respiratory ----------------
+  chest_pain:
+    label: chest pain
+    category: symptom
+    pain: true
+    en: ['chest pain', 'pain in (my |his |her |the )?chest', 'chest (tightness|pressure|heaviness|discomfort)', '(tightness|heaviness|pressure) in (my |his |her |the )?chest']
+    hi-en: ['(seene|seena|sine|chhati|chaati) (mein|me|main|men)? ?.{0,14}dard', 'seena dard']
+    hi: ['सीने में .{0,12}दर्द', 'सीने में दर्द', 'छाती में .{0,12}दर्द', 'सीने का दर्द']
+    ta: ['நெஞ்சு வலி', 'நெஞ்சுவலி', 'மார்பு வலி']
+    bn: ['বুকে ব্যথা', 'বুকে ব্যাথা', 'বুক ব্যথা', 'বুকে ব্যথা']
+  sweating:
+    label: sweating
+    category: symptom
+    en: ['sweat(ing|y)?', 'clammy', 'diaphores\w*']
+    hi-en: ['pasina', 'paseena', 'paseene']
+    hi: ['पसीना', 'पसीने']
+    ta: ['வியர்வை', 'வியர்க்கிறது']
+    bn: ['ঘাম']
+  radiation_arm_jaw:
+    label: pain spreading to arm/jaw
+    category: symptom
+    en: ['(spread\w*|radiat\w*|going|goes|moving) (to|into|down) (my |his |her |the )?(left |right )?(arm|jaw|shoulder|back)', '(left|right) arm pain']
+    hi-en: ['(baaye|baayen|bayen|left) haath (tak|mein)', 'haath tak ja']
+    hi: ['बाएं हाथ (तक|में)', 'बाएँ हाथ (तक|में)', 'हाथ तक जा', 'जबड़े तक']
+    ta: ['இடது கைக்கு பரவ']
+    bn: ['বাঁ হাতে ছড়া']
+  breathlessness:
+    label: breathlessness
+    category: symptom
+    en: ['breathless\w*', 'short(ness)? of breath', '(hard|difficult|difficulty|trouble|unable) (to |in )?breath\w*', "can'?t breathe", 'cannot breathe', 'difficulty breathing', 'breathing (difficulty|problem)', 'out of breath']
+    hi-en: ['saans (phool|phul|foo?l)\w*', 'saans lene (mein|me) (dikkat|takleef|taklif|pareshani)', 'saans nahi aa']
+    hi: ['सांस फूल', 'साँस फूल', 'सांस लेने में', 'साँस लेने में', 'दम फूल']
+    ta: ['மூச்சு திணறல்', 'மூச்சுத் திணறல்', 'மூச்சு விட சிரமம்']
+    bn: ['শ্বাসকষ্ট', 'শ্বাস নিতে কষ্ট']
+  breathless_at_rest:
+    label: breathless at rest / unable to speak
+    category: symptom
+    en: ['breathless at rest', "(can'?t|cannot|unable to) (speak|talk) (in )?(full )?sentences", 'gasping']
+    hi-en: ['baat nahi kar pa']
+    hi: ['बोल नहीं पा']
+  cyanosis:
+    label: blue lips
+    category: symptom
+    en: ['blue lips', 'lips (are |turning )?blue', 'bluish']
+    hi-en: ['hont neele']
+    hi: ['होंठ नीले']
+  palpitations:
+    label: palpitations
+    category: symptom
+    en: ['palpitations?', 'heart (is )?racing', 'heart beat(ing)? (fast|rapid)', 'pounding heart']
+    hi-en: ['dhadkan (tez|badh)', 'dil (tez|zor) se dhadak']
+    hi: ['धड़कन तेज', 'दिल तेज़? धड़क']
+  wheezing:
+    label: wheezing
+    category: symptom
+    en: ['wheez\w*']
+    hi-en: ['seeti (ki )?awaaz']
+    hi: ['सीटी (की )?आवाज']
+  cough:
+    label: cough
+    category: symptom
+    en: ['cough\w*']
+    hi-en: ['khansi', 'khaansi', 'khasi']
+    hi: ['खांसी', 'खाँसी', 'खासी']
+    ta: ['இருமல்']
+    bn: ['কাশি']
+  sore_throat:
+    label: sore throat
+    category: symptom
+    pain: true
+    en: ['sore throat', 'throat (pain|is sore)', 'pain in (my |the )?throat']
+    hi-en: ['gale (mein|me) (dard|kharash)', 'gala (kharab|dard)']
+    hi: ['गले में (दर्द|खराश)', 'गला खराब']
+    ta: ['தொண்டை வலி']
+    bn: ['গলা ব্যথা']
+  runny_nose:
+    label: cold / runny nose
+    category: symptom
+    en: ['runny nose', 'common cold', 'blocked nose', 'sneez\w*', 'a cold\b']
+    hi-en: ['zukaam', 'jukam', 'naak beh']
+    hi: ['जुकाम', 'ज़ुकाम', 'नाक बह']
+    ta: ['சளி', 'மூக்கு ஒழுகுதல்']
+    bn: ['সর্দি']
+  # ---------------- neuro ----------------
+  face_droop:
+    label: facial droop
+    category: symptom
+    en: ['face (is )?droop\w*', 'facial droop', 'droop\w* (on )?(one|the left|the right) side', 'mouth (is )?(deviated|twisted)']
+    hi-en: ['muh (tedha|tircha)', 'chehra (tedha|latak)']
+    hi: ['मुंह टेढ़ा', 'मुँह टेढ़ा', 'चेहरा टेढ़ा']
+  arm_weakness:
+    label: one-sided arm/leg weakness
+    category: symptom
+    en: ["(cannot|can'?t|unable to) (lift|move|raise) (his |her |my |the )?(right |left )?(arm|leg|hand)", 'weakness (in|of) (the |his |her |my )?(right|left) (arm|leg|side)', 'one side (of (the )?body )?(is )?weak', '(right|left)[- ]sided weakness', 'arm weakness']
+    hi-en: ['haath (nahi|nahin) (uth|hil)', 'ek taraf kamzori']
+    hi: ['हाथ नहीं उठ', 'एक तरफ कमजोरी']
+  slurred_speech:
+    label: slurred speech
+    category: symptom
+    en: ['slurred speech', 'speech (is )?slurr\w*', "(can'?t|cannot|unable to) speak (properly|clearly)", 'difficulty (in )?speaking']
+    hi-en: ['(bolne|bol) (mein|me) (dikkat|takleef)', 'zubaan latak']
+    hi: ['बोलने में (दिक्कत|तकलीफ)', 'ज़ुबान लड़खड़']
+  confusion:
+    label: confusion
+    category: symptom
+    en: ['confus\w*', 'disoriented']
+    hi-en: ['hosh (nahi|nahin) (hai|thik)', 'samajh nahi pa']
+    hi: ['भ्रम', 'होश ठीक नहीं']
+  unconscious:
+    label: unresponsive / unconscious
+    category: symptom
+    en: ['unconscious', 'unresponsive', 'not responding', 'not waking up', "won'?t wake up", 'passed out and (not|hasn)']
+    hi-en: ['behosh', 'hosh (mein )?nahi aa']
+    hi: ['बेहोश']
+    ta: ['மயக்கம்']
+    bn: ['অজ্ঞান']
+  fainting:
+    label: fainting
+    category: symptom
+    en: ['faint\w*', 'syncope', 'blacked out', 'collapsed']
+    hi-en: ['chakkar kha(kar)? gir', 'gir pad']
+    hi: ['चक्कर खाकर गिर']
+  seizure:
+    label: seizure
+    category: symptom
+    en: ['seizures?', 'convulsions?', '\bfits?\b', 'epileptic attack']
+    hi-en: ['daura (pada|aaya)', 'jhatke', 'mirgi']
+    hi: ['दौरा', 'झटके', 'मिर्गी']
+    ta: ['வலிப்பு']
+    bn: ['খিঁচুনি']
+  drowsiness:
+    label: drowsiness
+    category: symptom
+    en: ['drows\w*', 'very sleepy']
+    hi-en: ['neend (aa rahi|bahut)', 'sust']
+    hi: ['नींद', 'सुस्ती']
+  head_injury:
+    label: head injury
+    category: symptom
+    en: ['head injury', 'hit (my |his |her |the )?head', 'injur\w* (my |his |her |the )?head', 'fell .{0,30}head', 'head trauma']
+    hi-en: ['(sar|sir) (pe|par|mein) chot', 'sar phat']
+    hi: ['सिर (में|पर) चोट']
+  loss_of_consciousness:
+    label: brief loss of consciousness
+    category: symptom
+    en: ['lost consciousness', 'loss of consciousness', 'knocked out']
+    hi-en: ['hosh kho']
+    hi: ['होश खो']
+  headache:
+    label: headache
+    category: symptom
+    pain: true
+    en: ['headache', 'head ?ache', 'pain in (my |the )?head']
+    hi-en: ['(sar|sir) (mein |me )?dard', 'sardard']
+    hi: ['सिरदर्द', 'सिर दर्द', 'सिर में दर्द']
+    ta: ['தலைவலி', 'தலை வலி']
+    bn: ['মাথাব্যথা', 'মাথা ব্যথা']
+  thunderclap_headache:
+    label: sudden severe ("worst ever") headache
+    category: symptom
+    en: ['worst headache', 'sudden (severe |very bad )?headache', 'thunderclap']
+    hi-en: ['achanak (bahut )?tez (sar|sir) dard']
+    hi: ['अचानक तेज सिरदर्द']
+  dizziness:
+    label: dizziness
+    category: symptom
+    en: ['dizz\w*', 'giddi\w*', 'lightheaded', 'vertigo']
+    hi-en: ['chakkar']
+    hi: ['चक्कर']
+    ta: ['தலைச்சுற்றல்']
+    bn: ['মাথা ঘোরা']
+  # ---------------- general ----------------
+  fever:
+    label: fever
+    category: symptom
+    en: ['fever\w*', 'febrile', 'high temperature']
+    hi-en: ['bukhar', 'bukhaar']
+    hi: ['बुखार', 'बुख़ार', 'ज्वर']
+    ta: ['காய்ச்சல்']
+    bn: ['জ্বর']
+  chills:
+    label: chills
+    category: symptom
+    en: ['chills?', 'shivering', 'rigors?']
+    hi-en: ['kapkapi', 'thand lag']
+    hi: ['कंपकंपी', 'ठंड लग']
+  body_ache:
+    label: body ache
+    category: symptom
+    pain: true
+    en: ['body ?aches?', 'aching all over', 'myalgia']
+    hi-en: ['badan dard', 'sharir (mein )?dard']
+    hi: ['बदन दर्द', 'शरीर में दर्द']
+    ta: ['உடல் வலி']
+    bn: ['গা ব্যথা', 'শরীর ব্যথা']
+  weakness:
+    label: weakness
+    category: symptom
+    en: ['weak(ness)?\b', 'no energy']
+    hi-en: ['kamzori', 'kamjori']
+    hi: ['कमजोरी', 'कमज़ोरी']
+    ta: ['பலவீனம்', 'சோர்வு']
+    bn: ['দুর্বলতা', 'দুর্বল']
+  fatigue:
+    label: tiredness
+    category: symptom
+    en: ['tired\w*', 'fatigue\w*', 'exhaust\w*']
+    hi-en: ['thakaan', 'thakan', 'thaka']
+    hi: ['थकान', 'थकावट']
+  lethargy:
+    label: lethargy (child very sleepy/limp)
+    category: symptom
+    en: ['letharg\w*', 'limp\b', 'floppy']
+    hi-en: ['bahut sust', 'sust hai']
+    hi: ['बहुत सुस्त', 'सुस्त']
+  rash:
+    label: rash
+    category: symptom
+    en: ['rash\w*', 'red spots']
+    hi-en: ['daane', 'chakatte']
+    hi: ['दाने', 'चकत्ते']
+    ta: ['தடிப்பு']
+    bn: ['র্যাশ', 'ফুসকুড়ি']
+  itching:
+    label: itching
+    category: symptom
+    en: ['itch\w*']
+    hi-en: ['khujli']
+    hi: ['खुजली']
+    ta: ['அரிப்பு']
+    bn: ['চুলকানি']
+  acne:
+    label: acne
+    category: symptom
+    en: ['acne', 'pimples?']
+    hi-en: ['muhase', 'mahase']
+    hi: ['मुंहासे']
+  lip_throat_swelling:
+    label: swelling of lips/face/throat
+    category: symptom
+    en: ['(lips?|face|tongue|throat)( and (lips?|face|tongue|throat))? (is |are )?(swell\w*|swollen)', 'swelling of (the |my )?(lips?|face|tongue|throat)', 'swollen (lips?|face|tongue|throat)']
+    hi-en: ['(hont|chehra|gala) (sooj|suj)']
+    hi: ['होंठ सूज', 'चेहरा सूज', 'गला सूज']
+  hives:
+    label: hives
+    category: symptom
+    en: ['hives', 'urticaria', 'welts']
+    hi-en: ['pitti']
+    hi: ['पित्ती']
+  # ---------------- GI / GU ----------------
+  abdominal_pain:
+    label: abdominal pain
+    category: symptom
+    pain: true
+    en: ['abdominal pain', 'stomach ?(pain|ache)', 'belly pain', 'pain in (my |the )?(right |left |upper |lower )*(abdomen|stomach|belly|tummy)', 'tummy ache']
+    hi-en: ['pet (mein |me |main )?dard']
+    hi: ['पेट (में )?दर्द']
+    ta: ['வயிற்று வலி', 'வயிறு வலி']
+    bn: ['পেটে ব্যথা', 'পেট ব্যথা']
+  nausea:
+    label: nausea
+    category: symptom
+    en: ['nause\w*', 'feel(ing)? sick', 'queasy']
+    hi-en: ['ji machal', 'jee machal', 'ulti jaisa']
+    hi: ['जी मिचला', 'मतली']
+  vomiting:
+    label: vomiting
+    category: symptom
+    en: ['vomit\w*', 'throwing up', 'threw up']
+    hi-en: ['ulti', 'ultiyan']
+    hi: ['उल्टी', 'उल्टियां']
+    ta: ['வாந்தி']
+    bn: ['বমি']
+  vomiting_blood:
+    label: vomiting blood
+    category: symptom
+    en: ['vomit\w* (blood|red)', 'blood in (the )?vomit', 'haematemesis', 'hematemesis']
+    hi-en: ['khoon ki ulti', 'ulti (mein|me) khoon']
+    hi: ['खून की उल्टी', 'उल्टी में खून']
+  black_stool:
+    label: black stool
+    category: symptom
+    en: ['black (stool|stools|poo|motion)', 'tarry stool', 'melaena', 'melena']
+    hi-en: ['kaala (mal|potty|latrine)', 'kali potty']
+    hi: ['काला मल', 'काली पॉटी']
+  blood_in_stool:
+    label: blood in stool
+    category: symptom
+    en: ['blood in (the )?(stool|motion|poo)', 'bloody (stool|diarrh\w*)']
+    hi-en: ['potty (mein|me) khoon', 'latrine (mein|me) khoon']
+    hi: ['मल में खून']
+  diarrhea:
+    label: diarrhoea / loose motions
+    category: symptom
+    en: ['diarrh\w*', 'loose (motions?|stools?)']
+    hi-en: ['dast', 'loose motion', 'patle dast']
+    hi: ['दस्त']
+    ta: ['வயிற்றுப்போக்கு']
+    bn: ['ডায়রিয়া', 'পাতলা পায়খানা']
+  reduced_urine:
+    label: reduced / no urine
+    category: symptom
+    en: ['not passing urine', 'no urine', '(not|hasn.t) (peed|urinated)', 'reduced urine']
+    hi-en: ['peshab (nahi|nahin|kam)']
+    hi: ['पेशाब नहीं', 'पेशाब कम']
+  burning_urination:
+    label: burning while passing urine
+    category: symptom
+    en: ['burning (while |during |when )?(urinat\w*|passing urine|peeing)', 'painful urination', 'dysuria']
+    hi-en: ['peshab (mein|me) jalan']
+    hi: ['पेशाब में जलन']
+  frequent_urination:
+    label: frequent urination
+    category: symptom
+    en: ['frequent urination', 'urinating (a lot|frequently|often)', 'passing urine (frequently|often)']
+    hi-en: ['baar baar peshab']
+    hi: ['बार बार पेशाब', 'बार-बार पेशाब']
+  bleeding:
+    label: bleeding
+    category: symptom
+    en: ['bleed\w*', 'blood loss']
+    hi-en: ['khoon (aa|beh|nikal)']
+    hi: ['खून (आ|बह|निकल)']
+    ta: ['இரத்தப்போக்கு']
+    bn: ['রক্তপাত']
+  pregnancy:
+    label: pregnant
+    category: symptom
+    en: ['pregnan\w*', 'expecting a baby']
+    hi-en: ['pregnant', 'garbhvati', 'pet se hoon']
+    hi: ['गर्भवती', 'प्रेग्नेंट']
+    ta: ['கர்ப்பம்', 'கர்ப்பிணி']
+    bn: ['গর্ভবতী']
+  # ---------------- MSK / skin / other ----------------
+  back_pain:
+    label: back pain
+    category: symptom
+    pain: true
+    en: ['back ?pain', 'backache', 'pain in (my |the )?(lower |upper )?back']
+    hi-en: ['kamar (mein |me )?dard', 'peeth (mein |me )?dard']
+    hi: ['कमर (में )?दर्द', 'पीठ (में )?दर्द']
+    ta: ['முதுகு வலி']
+    bn: ['পিঠে ব্যথা', 'কোমরে ব্যথা']
+  joint_pain:
+    label: joint pain
+    category: symptom
+    pain: true
+    en: ['joint pains?', 'knee pain', 'pain in (my |the )?(knee|joints?)']
+    hi-en: ['jodon (mein |me )?dard', 'ghutne (mein |me )?dard']
+    hi: ['जोड़ों में दर्द', 'घुटने में दर्द']
+  neck_stiffness:
+    label: neck stiffness
+    category: symptom
+    en: ['stiff neck', 'neck (is )?stiff\w*', 'neck stiffness']
+    hi-en: ['gardan (akad|jakad)']
+    hi: ['गर्दन (अकड़|जकड़)']
+  animal_bite:
+    label: animal bite
+    category: symptom
+    en: ['(dog|cat|monkey|animal|rat) bite', 'bitten by (a )?(dog|cat|monkey|animal|rat)', '(dog|cat|monkey) bit']
+    hi-en: ['(kutte|kutta|billi|bandar) ne .{0,20}(kaata|kata|kaat)']
+    hi: ['(कुत्ते|बिल्ली|बंदर) ने .{0,15}काट']
+  low_mood:
+    label: low mood
+    category: symptom
+    en: ['depress\w*', 'very sad', 'hopeless', 'low mood']
+    hi-en: ['udaas', 'udas', 'mann nahi lag']
+    hi: ['उदास', 'निराश']
+  suicidal_ideation:
+    label: thoughts of self-harm
+    category: symptom
+    en: ['suicid\w*', 'kill (my|him|her)self', 'end (my|his|her) life', 'want to die', 'self[- ]harm']
+    hi-en: ['khud ko (khatam|maar)', 'jeene ka (mann|man) (nahi|nahin)', 'marna chaht\w*', 'aatmahatya']
+    hi: ['आत्महत्या', 'खुद को (खत्म|मार)', 'मरना चाहत', 'जीने का मन नहीं']
+  pain:
+    label: pain (site not stated)
+    category: symptom
+    pain: true
+    generic: true
+    en: ['\bpain\b', '\baches?\b']
+    hi-en: ['\bdard\b']
+    hi: ['दर्द']
+    ta: ['வலி']
+    bn: ['ব্যথা']
+
+  # ---------------- history (not symptoms) ----------------
+  diabetes:
+    label: diabetes
+    category: history
+    en: ['diabet\w*', 'high (blood )?sugar', 'sugar (patient|problem|disease)']
+    hi-en: ['sugar (ke|ki) (patient|bimari|marij|mareez)', 'sugar ki dawai', 'madhumeh']
+    hi: ['मधुमेह', 'शुगर', 'डायबिटीज']
+  hypertension:
+    label: high blood pressure
+    category: history
+    en: ['hypertensi\w*', 'high (blood pressure|bp)', '\bbp (medicine|tablet|patient|problem)']
+    hi-en: ['bp (ki|ke) (dawai|patient|bimari)', 'high bp']
+    hi: ['बीपी', 'उच्च रक्तचाप']
+  heart_disease:
+    label: heart disease
+    category: history
+    en: ['heart (disease|problem|attack before|patient)', 'angina', 'stent', 'bypass surgery']
+    hi-en: ['dil (ki|ka) (bimari|marij|mareez)']
+    hi: ['दिल की बीमारी']
+  asthma:
+    label: asthma
+    category: history
+    en: ['asthma\w*', 'inhaler']
+    hi-en: ['dama']
+    hi: ['दमा']
+  kidney_disease:
+    label: kidney disease / dialysis
+    category: history
+    en: ['dialysis', 'kidney (disease|failure|problem)', 'ckd']
+    hi-en: ['kidney (ki|kharab)']
+    hi: ['डायलिसिस', 'किडनी']
+  thyroid:
+    label: thyroid
+    category: history
+    en: ['thyroid']
+    hi: ['थायराइड']
+
+medications:
+  - amlodipine
+  - telmisartan
+  - losartan
+  - metformin
+  - glimepiride
+  - insulin
+  - aspirin
+  - clopidogrel
+  - atorvastatin
+  - rosuvastatin
+  - paracetamol
+  - ibuprofen
+  - diclofenac
+  - salbutamol
+  - levothyroxine
+  - thyronorm
+  - pantoprazole
+  - amoxicillin
+  - azithromycin
+
+# Function words used only to build the English gloss of non-English text.
+function_words:
+  hi-en:
+    hai: is
+    hain: are
+    mein: in
+    me: in
+    main: in
+    se: since
+    aur: and
+    ko: ''
+    ka: of
+    ke: of
+    ki: of
+    nahi: not
+    nahin: not
+    raha: ''
+    rahi: ''
+    rahe: ''
+    ho: ''
+    hoon: am
+    hu: am
+    kya: what
+    bahut: very
+    tez: high
+    halka: mild
+    aa: ''
+    gaya: ''
+    gayi: ''
+    jab: when
+    leta: take
+    pe: on
+    par: on
+    kal: yesterday
+    shaam: evening
+    papa: father
+    mummy: mother
+    maa: mother
+    bachche: child
+    bacche: child
+    abhi: now
+    baad: after
+    saath: with
+    ne: ''
+    thoda: a little
+    din: days
+    ghante: hours
+    ghanta: hour
+    hafte: weeks
+    mahine: months
+    karta: ''
+    karti: ''
+    chahta: want
+    chahti: want
+    haath: hand
+    gym: gym
+    aaya: came
+    patient: patient
+    sugar: sugar
+    lag: feel
+  hi:
+    है: is
+    हैं: are
+    में: in
+    से: since
+    और: and
+    को: ''
+    का: of
+    की: of
+    के: of
+    नहीं: not
+    रहा: ''
+    रही: ''
+    रहे: ''
+    हो: ''
+    आज: today
+    बच्चे: child
+    बहुत: very
+    मुझे: I have
+    दिन: days
+    घंटे: hours
+    हुई: happened
+    आ: ''
+    एक: one
+    दो: two
+    तीन: three
+    चार: four
+    बाएं: left
+    हाथ: hand
+    तक: up to
+    जा: ''
+  ta:
+    எனக்கு: I have
+    நாட்களாக: days
+    மற்றும்: and
+    உள்ளது: present
+    இருக்கிறது: present
+    குழந்தைக்கு: child has
+    இருமல்: cough
+  bn:
+    আমার: I have
+    দিন: days
+    ধরে: for
+    আর: and
+    হচ্ছে: present
+    এক: one
+    ঘণ্টা: hour
+    সপ্তাহ: week

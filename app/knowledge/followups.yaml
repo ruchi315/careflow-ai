@@ -1,0 +1,166 @@
+# Follow-up question bank. audience: patient (shown in the patient's language) or staff.
+# Translations (hi, hi-en, ta, bn) were authored for the hackathon and need native-speaker review.
+questions:
+  onset:
+    audience: patient
+    en: When did this problem start?
+    hi: यह समस्या कब शुरू हुई?
+    hi-en: Yeh takleef kab se shuru hui?
+    ta: இந்த பிரச்சனை எப்போது தொடங்கியது?
+    bn: এই সমস্যা কবে থেকে শুরু হয়েছে?
+  age:
+    audience: patient
+    en: What is the patient's age?
+    hi: मरीज़ की उम्र क्या है?
+    hi-en: Mareez ki umar kya hai?
+    ta: நோயாளியின் வயது என்ன?
+    bn: রোগীর বয়স কত?
+  sex:
+    audience: patient
+    en: Is the patient male or female?
+    hi: मरीज़ पुरुष है या महिला?
+    hi-en: Mareez purush hai ya mahila?
+    ta: நோயாளி ஆணா பெண்ணா?
+    bn: রোগী পুরুষ না মহিলা?
+  allergies:
+    audience: patient
+    en: Are you allergic to any medicine or food?
+    hi: क्या आपको किसी दवा या खाने से एलर्जी है?
+    hi-en: Kya aapko kisi dawai ya khane se allergy hai?
+    ta: உங்களுக்கு ஏதேனும் மருந்து அல்லது உணவு ஒவ்வாமை உள்ளதா?
+    bn: আপনার কি কোনো ওষুধ বা খাবারে অ্যালার্জি আছে?
+  medications:
+    audience: patient
+    en: Which medicines are you taking at present?
+    hi: आप अभी कौन सी दवाइयाँ ले रहे हैं?
+    hi-en: Aap abhi kaunsi dawaiyan le rahe hain?
+    ta: நீங்கள் தற்போது என்ன மருந்துகள் எடுத்துக்கொள்கிறீர்கள்?
+    bn: আপনি এখন কোন কোন ওষুধ খাচ্ছেন?
+  fever_status:
+    audience: patient
+    en: Do you have fever? If yes, how high?
+    hi: क्या आपको बुखार है? अगर हाँ, तो कितना?
+    hi-en: Kya bukhar hai? Agar haan, to kitna?
+    ta: உங்களுக்கு காய்ச்சல் உள்ளதா? இருந்தால் எவ்வளவு?
+    bn: আপনার কি জ্বর আছে? থাকলে কত?
+  breathlessness_status:
+    audience: patient
+    en: Do you have any difficulty in breathing?
+    hi: क्या सांस लेने में तकलीफ है?
+    hi-en: Kya saans lene mein takleef hai?
+    ta: மூச்சு விடுவதில் சிரமம் உள்ளதா?
+    bn: শ্বাস নিতে কি কষ্ট হচ্ছে?
+  sweating_status:
+    audience: patient
+    en: Are you sweating or feeling clammy along with the pain?
+    hi: क्या दर्द के साथ पसीना आ रहा है?
+    hi-en: Kya dard ke saath pasina aa raha hai?
+    ta: வலியுடன் வியர்வை வருகிறதா?
+    bn: ব্যথার সাথে কি ঘাম হচ্ছে?
+  radiation_status:
+    audience: patient
+    en: Does the pain spread to the arm, jaw or back?
+    hi: क्या दर्द हाथ, जबड़े या पीठ तक जाता है?
+    hi-en: Kya dard haath, jabde ya peeth tak jaata hai?
+    ta: வலி கை, தாடை அல்லது முதுகுக்கு பரவுகிறதா?
+    bn: ব্যথা কি হাত, চোয়াল বা পিঠে ছড়াচ্ছে?
+  cardiac_history:
+    audience: patient
+    en: Have you had heart disease, high BP or diabetes before?
+    hi: क्या पहले कभी दिल की बीमारी, बीपी या शुगर रही है?
+    hi-en: Kya pehle kabhi dil ki bimari, BP ya sugar rahi hai?
+    ta: முன்பு இதய நோய், ரத்த அழுத்தம் அல்லது சர்க்கரை நோய் இருந்ததா?
+    bn: আগে কি হার্টের সমস্যা, উচ্চ রক্তচাপ বা ডায়াবেটিস ছিল?
+  severity:
+    audience: patient
+    en: On a scale of 0 to 10, how bad is the pain?
+    hi: 0 से 10 में दर्द कितना है?
+    hi-en: 0 se 10 mein dard kitna hai?
+    ta: 0 முதல் 10 வரை வலி எவ்வளவு?
+    bn: ০ থেকে ১০-এর মধ্যে ব্যথা কতটা?
+  location:
+    audience: patient
+    en: Where exactly is the pain?
+    hi: दर्द ठीक कहाँ है?
+    hi-en: Dard theek kahan hai?
+    ta: வலி சரியாக எங்கே உள்ளது?
+    bn: ব্যথা ঠিক কোথায়?
+  vomiting_status:
+    audience: patient
+    en: Have you vomited? How many times?
+    hi: क्या उल्टी हुई है? कितनी बार?
+    hi-en: Kya ulti hui hai? Kitni baar?
+    ta: வாந்தி வந்ததா? எத்தனை முறை?
+    bn: বমি হয়েছে কি? কতবার?
+  pregnancy_weeks:
+    audience: patient
+    en: How many weeks pregnant are you, and how heavy is the bleeding or pain?
+    hi: आप कितने हफ्ते की गर्भवती हैं, और खून या दर्द कितना है?
+    hi-en: Aap kitne hafte ki pregnant hain, aur khoon ya dard kitna hai?
+    ta: நீங்கள் எத்தனை வார கர்ப்பம்? இரத்தப்போக்கு அல்லது வலி எவ்வளவு?
+    bn: আপনি কত সপ্তাহের গর্ভবতী, এবং রক্তপাত বা ব্যথা কতটা?
+  temperature:
+    audience: staff
+    en: Record the patient's temperature.
+  spo2:
+    audience: staff
+    en: Measure oxygen saturation (SpO2) now.
+  last_known_well:
+    audience: staff
+    en: Establish the exact time the patient was last known well (stroke window).
+  conflict_diabetes:
+    audience: patient
+    en: Your report shows high sugar values. Have you ever been told you have diabetes, or do you take sugar medicines?
+    hi: आपकी रिपोर्ट में शुगर ज़्यादा है। क्या आपको कभी डायबिटीज़ बताई गई है या आप शुगर की दवा लेते हैं?
+    hi-en: Aapki report mein sugar zyada hai. Kya kabhi diabetes batayi gayi hai ya sugar ki dawai lete hain?
+    ta: உங்கள் அறிக்கையில் சர்க்கரை அளவு அதிகம் உள்ளது. உங்களுக்கு சர்க்கரை நோய் இருப்பதாக முன்பு சொல்லப்பட்டதா?
+    bn: আপনার রিপোর্টে সুগার বেশি। আপনাকে কি আগে ডায়াবেটিস আছে বলা হয়েছে?
+  conflict_duration:
+    audience: patient
+    en: Since when exactly do you have this problem? We received different durations.
+    hi: यह तकलीफ ठीक कब से है? हमें अलग-अलग समय मिले हैं।
+    hi-en: Yeh takleef theek kab se hai? Humein alag-alag samay mila hai.
+    ta: இந்த பிரச்சனை சரியாக எப்போதிலிருந்து உள்ளது? வெவ்வேறு கால அளவுகள் கிடைத்தன.
+    bn: এই সমস্যা ঠিক কবে থেকে? আমরা আলাদা আলাদা সময় পেয়েছি।
+  conflict_symptom:
+    audience: patient
+    en: We received different answers about one of your symptoms. Could you confirm it?
+    hi: आपके एक लक्षण के बारे में अलग-अलग जानकारी मिली है। क्या आप पुष्टि कर सकते हैं?
+    hi-en: Aapke ek lakshan ke baare mein alag jaankari mili hai. Kya aap confirm kar sakte hain?
+    ta: உங்கள் ஒரு அறிகுறி பற்றி வெவ்வேறு தகவல் கிடைத்தது. உறுதிப்படுத்த முடியுமா?
+    bn: আপনার একটি উপসর্গ নিয়ে ভিন্ন তথ্য পেয়েছি। আপনি কি নিশ্চিত করতে পারেন?
+  conflict_identity:
+    audience: patient
+    en: The attached report seems to belong to a different person. Is this your report?
+    hi: संलग्न रिपोर्ट किसी और की लगती है। क्या यह आपकी रिपोर्ट है?
+    hi-en: Yeh report kisi aur ki lagti hai. Kya yeh aapki report hai?
+    ta: இணைக்கப்பட்ட அறிக்கை வேறு ஒருவருடையது போல் தெரிகிறது. இது உங்கள் அறிக்கையா?
+    bn: সংযুক্ত রিপোর্টটি অন্য কারো মনে হচ্ছে। এটা কি আপনার রিপোর্ট?
+  reupload_report:
+    audience: patient
+    en: The report photo is not clear. Please upload a clearer photo or the original PDF.
+    hi: रिपोर्ट की फोटो साफ़ नहीं है। कृपया साफ़ फोटो या PDF भेजें।
+    hi-en: Report ki photo saaf nahi hai. Kripya saaf photo ya PDF bhejein.
+    ta: அறிக்கையின் புகைப்படம் தெளிவாக இல்லை. தெளிவான புகைப்படம் அல்லது PDF பதிவேற்றவும்.
+    bn: রিপোর্টের ছবি পরিষ্কার নয়। দয়া করে পরিষ্কার ছবি বা PDF দিন।
+  confirm_voice:
+    audience: staff
+    en: The voice-note transcription is uncertain. Confirm the key details directly with the patient.
+  confirm_translation:
+    audience: staff
+    en: The translation is uncertain. Confirm the complaint with an interpreter or the patient.
+
+# Patient-facing status messages (closed loop)
+status_messages:
+  received:
+    en: Thank you. Your information has been received. A healthcare professional will review it. If you feel worse, tell the staff immediately.
+    hi: धन्यवाद। आपकी जानकारी मिल गई है। एक स्वास्थ्य कर्मी इसे देखेंगे। तबीयत ज़्यादा खराब लगे तो तुरंत स्टाफ को बताएं।
+    hi-en: Dhanyavaad. Aapki jaankari mil gayi hai. Ek healthcare professional ise dekhenge. Tabiyat zyada kharab lage to turant staff ko batayein.
+    ta: நன்றி. உங்கள் தகவல் பெறப்பட்டது. ஒரு சுகாதார நிபுணர் இதைப் பார்ப்பார். உடல்நிலை மோசமானால் உடனே ஊழியர்களிடம் சொல்லுங்கள்.
+    bn: ধন্যবাদ। আপনার তথ্য পাওয়া গেছে। একজন স্বাস্থ্যকর্মী এটি দেখবেন। শরীর খারাপ লাগলে সঙ্গে সঙ্গে কর্মীদের জানান।
+  urgent:
+    en: Please stay at the triage desk. A nurse has been alerted and will see you shortly.
+    hi: कृपया ट्राइएज डेस्क पर रहें। नर्स को सूचित कर दिया गया है और वे जल्द ही आपको देखेंगी।
+    hi-en: Kripya triage desk par rahein. Nurse ko bata diya gaya hai, woh jaldi aapko dekhengi.
+    ta: தயவுசெய்து ட்ரையேஜ் மேசையில் இருங்கள். செவிலியருக்கு தெரிவிக்கப்பட்டுள்ளது, விரைவில் உங்களைப் பார்ப்பார்.
+    bn: অনুগ্রহ করে ট্রায়াজ ডেস্কে থাকুন। নার্সকে জানানো হয়েছে, তিনি শীঘ্রই আপনাকে দেখবেন।

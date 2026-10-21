@@ -1,0 +1,112 @@
+# Adult reference ranges used when a report does not print its own range,
+# plus critical thresholds. Values are typical textbook ranges for the demo and
+# must be replaced by the hospital laboratory's own ranges before real use.
+tests:
+  hemoglobin:
+    label: Hemoglobin
+    aliases: [hemoglobin, haemoglobin, hb, hgb]
+    unit: g/dL
+    low: 12.0
+    high: 17.0
+    critical_low: 7.0
+  wbc:
+    label: WBC count
+    aliases: [wbc count, wbc, total leucocyte count, tlc, total wbc count]
+    unit: /uL
+    low: 4000
+    high: 11000
+  platelets:
+    label: Platelet count
+    aliases: [platelet count, platelets, plt]
+    unit: lakh/uL
+    low: 1.5
+    high: 4.5
+    critical_low: 0.2
+  hba1c:
+    label: HbA1c
+    aliases: [hba1c, glycated haemoglobin, glycated hemoglobin, glycosylated hemoglobin]
+    unit: '%'
+    low: 4.0
+    high: 5.6
+  glucose_fasting:
+    label: Fasting blood glucose
+    aliases: [fasting blood glucose, fasting blood sugar, fbs, fbg, fasting glucose]
+    unit: mg/dL
+    low: 70
+    high: 99
+    critical_low: 54
+    critical_high: 400
+  glucose_random:
+    label: Random blood glucose
+    aliases: [random blood glucose, random blood sugar, rbs, grbs, blood glucose, blood sugar]
+    unit: mg/dL
+    low: 70
+    high: 140
+    critical_low: 54
+    critical_high: 400
+  potassium:
+    label: Serum potassium
+    aliases: [serum potassium, potassium, k+, s. potassium]
+    unit: mmol/L
+    low: 3.5
+    high: 5.1
+    critical_low: 2.5
+    critical_high: 6.0
+  sodium:
+    label: Serum sodium
+    aliases: [serum sodium, sodium, na+, s. sodium]
+    unit: mmol/L
+    low: 135
+    high: 145
+    critical_low: 120
+    critical_high: 160
+  creatinine:
+    label: Serum creatinine
+    aliases: [serum creatinine, creatinine, s. creatinine]
+    unit: mg/dL
+    low: 0.6
+    high: 1.3
+  urea:
+    label: Blood urea
+    aliases: [blood urea, urea, bun]
+    unit: mg/dL
+    low: 15
+    high: 40
+  tsh:
+    label: TSH
+    aliases: [tsh, thyroid stimulating hormone]
+    unit: uIU/mL
+    low: 0.4
+    high: 4.0
+  free_t4:
+    label: Free T4
+    aliases: [free t4, ft4]
+    unit: ng/dL
+    low: 0.8
+    high: 1.8
+  total_cholesterol:
+    label: Total cholesterol
+    aliases: [total cholesterol, cholesterol total, serum cholesterol]
+    unit: mg/dL
+    high: 200
+  ldl:
+    label: LDL cholesterol
+    aliases: [ldl cholesterol, ldl]
+    unit: mg/dL
+    high: 130
+  hdl:
+    label: HDL cholesterol
+    aliases: [hdl cholesterol, hdl]
+    unit: mg/dL
+    low: 40
+  triglycerides:
+    label: Triglycerides
+    aliases: [triglycerides, tg]
+    unit: mg/dL
+    high: 150
+  troponin:
+    label: Troponin I
+    aliases: [troponin i, troponin, trop i, hs-troponin]
+    unit: ng/mL
+    high: 0.04
+    critical_high: 0.04

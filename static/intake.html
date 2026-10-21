@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CareFlow Intake</title>
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <div class="topbar"><div class="brand">CareFlow AI <span>patient intake</span></div>
+    <div class="who"><a href="/static/index.html" style="color:#cfe0f5">Home</a></div></div>
+  <div class="kiosk">
+    <!-- Step 1: language -->
+    <div class="panel" id="step-lang">
+      <h2>Choose your language / अपनी भाषा चुनें</h2>
+      <div class="lang-grid" id="lang-grid"></div>
+      <p class="small muted" style="margin-top:14px">Already submitted? <a href="#" id="go-status">Check your case</a></p>
+    </div>
+
+    <!-- Step 2: consent -->
+    <div class="panel hidden" id="step-consent">
+      <h2 data-t="consent_title"></h2>
+      <div id="consent-box"></div>
+      <p class="small muted" id="rights"></p>
+      <div class="row"><button id="consent-back" data-t="back"></button><button class="primary" id="consent-next" data-t="next"></button></div>
+    </div>
+
+    <!-- Step 3: details -->
+    <div class="panel hidden" id="step-details">
+      <h2 data-t="details_title"></h2>
+      <div class="row">
+        <div class="grow"><label data-t="name"></label><input id="p-name" autocomplete="off"></div>
+        <div style="width:110px"><label data-t="age"></label><input id="p-age" type="number" min="0" max="120" step="0.1"></div>
+        <div style="width:150px"><label data-t="sex"></label>
+          <select id="p-sex"><option value=""></option><option value="F">F</option><option value="M">M</option><option value="O">Other</option></select></div>
+      </div>
+      <label data-t="describe"></label>
+      <textarea id="p-text" data-tp="describe_ph"></textarea>
+      <label data-t="voice"></label>
+      <div class="row">
+        <button id="rec-btn" data-t="record"></button>
+        <span id="rec-state" class="muted small"></span>
+        <audio id="rec-audio" controls class="hidden"></audio>
+      </div>
+      <label data-t="reports"></label>
+      <input type="file" id="p-files" multiple accept=".pdf,image/*,audio/*">
+      <p class="small muted" data-t="reports_hint"></p>
+      <div class="row" style="margin-top:14px"><button id="details-back" data-t="back"></button>
+        <button class="primary big" id="submit" data-t="submit"></button></div>
+      <p class="small" id="submit-err" style="color:var(--bad)"></p>
+    </div>
+
+    <!-- Step 4: status / follow-up loop -->
+    <div class="panel hidden" id="step-status">
+      <h2 data-t="thanks"></h2>
+      <p id="st-message" class="big"></p>
+      <p data-t="your_codes"></p>
+      <div class="row"><span class="codebox" id="st-code"></span><span class="codebox" id="st-access"></span></div>
+      <p class="small muted" data-t="keep_codes"></p>
+      <div id="st-questions"></div>
+      <hr style="border:none;border-top:1px solid var(--line);margin:18px 0">
+      <div class="row"><button id="st-withdraw" data-t="withdraw"></button><button class="danger" id="st-erase" data-t="erase"></button></div>
+    </div>
+
+    <div class="panel hidden" id="step-lookup">
+      <h2>Check your case</h2>
+      <div class="row"><input id="lk-code" placeholder="Case code (CF-XXXXX)"><input id="lk-access" placeholder="Access code (6 digits)">
+        <button class="primary" id="lk-go">Open</button></div>
+    </div>
+    <p class="disclaimer small">CareFlow AI does not diagnose. A doctor or nurse reviews every case. If you feel very unwell, tell the staff immediately.</p>
+  </div>
+<script src="/static/js/common.js"></script>
+<script>
+const T = {
+  en: { consent_title: 'Your consent', back: 'Back', next: 'Continue', details_title: 'Tell us what is wrong', name: 'Name', age: 'Age (years)', sex: 'Sex',
+        describe: 'Describe the problem in your own words', describe_ph: 'e.g. chest pain since 1 hour, sweating...', voice: 'Or record a voice note',
+        record: 'Start recording', stop: 'Stop recording', reports: 'Attach reports or prescriptions (photo or PDF)', reports_hint: 'Optional. Lab reports, discharge summaries, prescriptions.',
+        submit: 'Submit', thanks: 'Thank you', your_codes: 'Your case code and access code:', keep_codes: 'Keep these codes. You need them to answer questions, withdraw consent or delete your data.',
+        questions: 'The care team has a few questions', answer: 'Send answer', withdraw: 'Withdraw consent', erase: 'Delete my data', need_consent: 'Please accept the required consent to continue.',
+        need_input: 'Please type a message, record a voice note or attach a report.', confirm_erase: 'Delete all your data permanently?' },
+  hi: { consent_title: 'आपकी सहमति', back: 'वापस', next: 'आगे', details_title: 'अपनी समस्या बताएं', name: 'नाम', age: 'उम्र (साल)', sex: 'लिंग',
+        describe: 'अपनी समस्या अपने शब्दों में लिखें', describe_ph: 'जैसे: एक घंटे से सीने में दर्द, पसीना...', voice: 'या आवाज़ में रिकॉर्ड करें',
+        record: 'रिकॉर्डिंग शुरू करें', stop: 'रिकॉर्डिंग रोकें', reports: 'रिपोर्ट या पर्चा लगाएं (फोटो या PDF)', reports_hint: 'वैकल्पिक।',
+        submit: 'जमा करें', thanks: 'धन्यवाद', your_codes: 'आपका केस कोड और एक्सेस कोड:', keep_codes: 'ये कोड संभाल कर रखें।',
+        questions: 'देखभाल टीम के कुछ सवाल', answer: 'जवाब भेजें', withdraw: 'सहमति वापस लें', erase: 'मेरा डेटा हटाएं', need_consent: 'आगे बढ़ने के लिए आवश्यक सहमति दें।',
+        need_input: 'कृपया संदेश लिखें, आवाज़ रिकॉर्ड करें या रिपोर्ट लगाएं।', confirm_erase: 'क्या आप अपना सारा डेटा हमेशा के लिए हटाना चाहते हैं?' },
+  'hi-en': { consent_title: 'Aapki sehmati', back: 'Wapas', next: 'Aage', details_title: 'Apni takleef batayein', name: 'Naam', age: 'Umar (saal)', sex: 'Ling',
+        describe: 'Apni takleef apne shabdon mein likhein', describe_ph: 'jaise: 1 ghante se seene mein dard, pasina...', voice: 'Ya awaaz mein record karein',
+        record: 'Recording shuru karein', stop: 'Recording rokein', reports: 'Report ya parcha lagayein (photo ya PDF)', reports_hint: 'Optional.',
+        submit: 'Submit karein', thanks: 'Dhanyavaad', your_codes: 'Aapka case code aur access code:', keep_codes: 'Yeh codes sambhaal kar rakhein.',
+        questions: 'Care team ke kuch sawaal', answer: 'Jawab bhejein', withdraw: 'Sehmati wapas lein', erase: 'Mera data delete karein', need_consent: 'Aage badhne ke liye zaroori sehmati dein.',
+        need_input: 'Kripya message likhein, awaaz record karein ya report lagayein.', confirm_erase: 'Kya aap apna saara data hamesha ke liye delete karna chahte hain?' },
+  ta: { consent_title: 'உங்கள் ஒப்புதல்', back: 'பின்', next: 'தொடர்', details_title: 'உங்கள் பிரச்சனையைச் சொல்லுங்கள்', name: 'பெயர்', age: 'வயது', sex: 'பாலினம்',
+        describe: 'உங்கள் பிரச்சனையை உங்கள் சொந்த வார்த்தைகளில் எழுதுங்கள்', describe_ph: 'எ.கா: 4 நாட்களாக இருமல்...', voice: 'அல்லது குரல் பதிவு செய்யுங்கள்',
+        record: 'பதிவு தொடங்கு', stop: 'பதிவை நிறுத்து', reports: 'அறிக்கைகளை இணைக்கவும் (புகைப்படம் அல்லது PDF)', reports_hint: 'விருப்பத்தேர்வு.',
+        submit: 'சமர்ப்பி', thanks: 'நன்றி', your_codes: 'உங்கள் கேஸ் குறியீடு மற்றும் அணுகல் குறியீடு:', keep_codes: 'இந்தக் குறியீடுகளைப் பத்திரமாக வைத்திருங்கள்.',
+        questions: 'பராமரிப்புக் குழுவின் சில கேள்விகள்', answer: 'பதில் அனுப்பு', withdraw: 'ஒப்புதலைத் திரும்பப் பெறு', erase: 'என் தரவை நீக்கு', need_consent: 'தொடர தேவையான ஒப்புதலை அளிக்கவும்.',
+        need_input: 'செய்தி எழுதவும், குரல் பதிவு செய்யவும் அல்லது அறிக்கையை இணைக்கவும்.', confirm_erase: 'உங்கள் எல்லா தரவையும் நிரந்தரமாக நீக்கவா?' },
+  bn: { consent_title: 'আপনার সম্মতি', back: 'পিছনে', next: 'এগিয়ে যান', details_title: 'আপনার সমস্যা বলুন', name: 'নাম', age: 'বয়স', sex: 'লিঙ্গ',
+        describe: 'নিজের ভাষায় সমস্যাটি লিখুন', describe_ph: 'যেমন: ২ দিন ধরে জ্বর আর কাশি...', voice: 'অথবা ভয়েস রেকর্ড করুন',
+        record: 'রেকর্ডিং শুরু', stop: 'রেকর্ডিং বন্ধ', reports: 'রিপোর্ট বা প্রেসক্রিপশন যোগ করুন (ছবি বা PDF)', reports_hint: 'ঐচ্ছিক।',
+        submit: 'জমা দিন', thanks: 'ধন্যবাদ', your_codes: 'আপনার কেস কোড ও অ্যাক্সেস কোড:', keep_codes: 'এই কোডগুলি সংরক্ষণ করুন।',
+        questions: 'কেয়ার টিমের কিছু প্রশ্ন', answer: 'উত্তর পাঠান', withdraw: 'সম্মতি প্রত্যাহার', erase: 'আমার তথ্য মুছুন', need_consent: 'এগোতে প্রয়োজনীয় সম্মতি দিন।',
+        need_input: 'অনুগ্রহ করে বার্তা লিখুন, ভয়েস রেকর্ড করুন বা রিপোর্ট যোগ করুন।', confirm_erase: 'আপনার সব তথ্য স্থায়ীভাবে মুছে ফেলবেন?' },
+};
+let lang = 'en', recorder = null, chunks = [], recBlob = null, consentState = {}, current = null, pollTimer = null;
+const $ = id => document.getElementById(id);
+const t = k => (T[lang] && T[lang][k]) || T.en[k];
+function show(id) { for (const s of ['step-lang', 'step-consent', 'step-details', 'step-status', 'step-lookup']) $(s).classList.toggle('hidden', s !== id); }
+function applyT() {
+  document.querySelectorAll('[data-t]').forEach(el => el.textContent = t(el.dataset.t));
+  document.querySelectorAll('[data-tp]').forEach(el => el.placeholder = t(el.dataset.tp));
+}
+for (const [code, name] of Object.entries(CF.langs)) {
+  const b = document.createElement('button'); b.textContent = name;
+  b.onclick = async () => { lang = code; applyT(); await loadConsent(); show('step-consent'); };
+  $('lang-grid').appendChild(b);
+}
+async function loadConsent() {
+  const c = await CF.api('/api/consent?lang=' + encodeURIComponent(lang));
+  consentState = { version: c.version };
+  $('consent-box').innerHTML = Object.entries(c.scopes).map(([k, s]) =>
+    `<label class="check"><input type="checkbox" data-scope="${esc(k)}"> <span>${esc(s.text)}${s.required ? ' <b>*</b>' : ''}</span></label>`).join('');
+  $('rights').textContent = c.rights;
+}
+$('consent-back').onclick = () => show('step-lang');
+$('consent-next').onclick = () => {
+  document.querySelectorAll('[data-scope]').forEach(cb => consentState[cb.dataset.scope] = cb.checked);
+  if (!consentState.triage) { alert(t('need_consent')); return; }
+  show('step-details');
+};
+$('details-back').onclick = () => show('step-consent');
+$('rec-btn').onclick = async () => {
+  if (recorder && recorder.state === 'recording') { recorder.stop(); return; }
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    recorder = new MediaRecorder(stream); chunks = [];
+    recorder.ondataavailable = e => chunks.push(e.data);
+    recorder.onstop = () => {
+      recBlob = new Blob(chunks, { type: recorder.mimeType || 'audio/webm' });
+      $('rec-audio').src = URL.createObjectURL(recBlob); $('rec-audio').classList.remove('hidden');
+      $('rec-state').textContent = `${(recBlob.size / 1024).toFixed(0)} KB`; $('rec-btn').textContent = t('record');
+      stream.getTracks().forEach(tr => tr.stop());
+    };
+    recorder.start(); $('rec-btn').textContent = t('stop'); $('rec-state').innerHTML = '<span class="rec-dot"></span>';
+  } catch (e) { $('rec-state').textContent = 'Microphone not available: ' + e.message; }
+};
+$('submit').onclick = async () => {
+  const text = $('p-text').value.trim(), files = $('p-files').files;
+  if (!text && !recBlob && !files.length) { $('submit-err').textContent = t('need_input'); return; }
+  const fd = new FormData();
+  fd.append('patient', JSON.stringify({ name: $('p-name').value, age: $('p-age').value, sex: $('p-sex').value }));
+  fd.append('consent', JSON.stringify(consentState)); fd.append('language', lang);
+  if (text) fd.append('text', text);
+  if (recBlob) fd.append('files', recBlob, 'voice-note.' + (recBlob.type.includes('ogg') ? 'ogg' : 'webm'));
+  for (const f of files) fd.append('files', f);
+  $('submit').disabled = true; $('submit-err').textContent = '';
+  try {
+    const r = await CF.api('/api/intake/patient', { method: 'POST', body: fd });
+    current = { code: r.code, access: r.access_code };
+    $('st-code').textContent = r.code; $('st-access').textContent = r.access_code; $('st-message').textContent = r.message || '';
+    show('step-status'); poll();
+  } catch (e) { $('submit-err').textContent = e.message; }
+  $('submit').disabled = false;
+};
+async function poll() {
+  clearTimeout(pollTimer);
+  if (!current) return;
+  try {
+    const s = await CF.api(`/api/patient/${encodeURIComponent(current.code)}?access=${encodeURIComponent(current.access)}`);
+    lang = s.language || lang; applyT();
+    $('st-code').textContent = current.code; $('st-access').textContent = current.access;
+    $('st-message').textContent = s.status === 'withdrawn' ? 'Consent withdrawn.' : (s.message || '');
+    const box = $('st-questions');
+    if (s.questions.length) {
+      box.innerHTML = `<h3>${esc(t('questions'))}</h3>` + s.questions.map((q, i) =>
+        `<div class="panel"><p class="big">${esc(q.text)}</p><div class="row"><input id="ans-${i}" class="grow">
+         <button class="primary" data-i="${i}">${esc(t('answer'))}</button></div></div>`).join('');
+      box.querySelectorAll('button[data-i]').forEach(b => b.onclick = async () => {
+        const q = s.questions[+b.dataset.i], v = $('ans-' + b.dataset.i).value.trim(); if (!v) return;
+        await CF.api(`/api/patient/${current.code}/answer?access=${current.access}`, { method: 'POST', json: { question_id: q.id, question_text: q.text, answer: v } });
+        toast('Sent'); poll();
+      });
+    } else box.innerHTML = '';
+  } catch (e) { $('st-message').textContent = e.message; }
+  pollTimer = setTimeout(poll, 6000);
+}
+$('st-withdraw').onclick = async () => { await CF.api(`/api/patient/${current.code}/withdraw?access=${current.access}`, { method: 'POST' }); poll(); };
+$('st-erase').onclick = async () => {
+  if (!confirm(t('confirm_erase'))) return;
+  await CF.api(`/api/patient/${current.code}/erase?access=${current.access}`, { method: 'POST' });
+  clearTimeout(pollTimer); current = null; $('st-questions').innerHTML = ''; $('st-message').textContent = 'Your data has been deleted.';
+};
+$('go-status').onclick = e => { e.preventDefault(); show('step-lookup'); };
+$('lk-go').onclick = () => { current = { code: $('lk-code').value.trim().toUpperCase(), access: $('lk-access').value.trim() }; show('step-status'); poll(); };
+applyT();
+</script>
+</body>
+</html>
